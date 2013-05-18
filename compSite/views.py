@@ -60,7 +60,7 @@ def saveCompromise(request):
 			uniqDesc = md5(user + str(recordId)).hexdigest()
 			uniqUrl = ANSWER_URL + uniqDesc
 
-			mongoConnection.insert({"uniqDesc": uniqDesc, "idEvent": str(recordId)})
+			mongoConnection.insert({"uniqDesc": uniqDesc, "idEvent": str(recordId), 'mail': user})
 			send_mail(EMAIL_SUBJECT_CREATE, (EMAIL_TEXT_CREATE % uniqUrl), EMAIL_HOST_USER, [user])
 
 		return HttpResponse('{"status": "ok", "url": %s}' % uniqUrl)
