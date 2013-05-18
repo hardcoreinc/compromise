@@ -62,7 +62,7 @@ def renderAnswer(request):
 	curAnswer = mongoConnection.find_one({"uniqDesc": uniqDesc})
 	idEvent = curAnswer.get("idEvent")
 	curEvent = mongoConnection.find_one({"_id": idEvent})
-	return HttpResponse(json.dumps(curEvent))
+	return HttpResponse(json.dumps([curEvent, curAnswer, idEvent]))
 
 def addAnswer(request):
 	try:
