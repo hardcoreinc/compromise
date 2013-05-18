@@ -9,5 +9,5 @@ for event in mongoConnection.find({'type': 'event'}):
 	deltaTime = time() - timeEvent
 	if deltaTime < 600:
 		continue
-#	for event1 in mongoConnection.find({'idEvent': str(idEvent)}):
+#	for event1 in mongoConnection.find({'idEvent': str(idEvent)})
 	print json.dumps(event)
