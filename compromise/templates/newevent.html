@@ -52,7 +52,7 @@
 
 		<script type="text/template" id="question-tr-tpl">
 			<tr class="question" data-index="<%= index %>">
-				<td class="index"><%= index + 1 %></td>
+				<td class="index"><div><%= index + 1 %></div></td>
 				<td>
 					<img src="../static/img/<%= icon_class %>.png">
 				</td>
@@ -60,24 +60,24 @@
 					<span><%= name %></span>
 					<input class="hide" type="text">
 				</td>
-				<td class="edit">
-					<img src="../static/img/edit.png">
+				<td>
+					<img class="edit" src="../static/img/edit.png">
 				</td>
-				<td class="delete">
-					<img src="../static/img/delete.png">
+				<td>
+					<img class="delete" src="../static/img/delete.png">
 				</td>
 			</tr>
   		</script>
 
   		<script type="text/template" id="answer-tr-tpl">
 			<tr class="question" data-index-question="<%= index_question %>" data-index-answer="<%= index_answer %>">
-				<td class="index"><%= index_answer + 1 %></td>
+				<td class="index"><div><%= index_answer + 1 %></div></td>
 				<td class="name">
 					<span><%= name %></span>
 					<input class="hide" type="text">
 				</td>
-				<td class="delete">
-					<img src="../static/img/delete.png">
+				<td>
+					<img class="delete" src="../static/img/delete.png">
 				</td>
 			</tr>
   		</script>
@@ -92,7 +92,7 @@
 					<input class="span3 answer-name" type="text" placeholder="Ответ">
 					<button class="btn btn-primary add-answer" type="button" data-index="<%= data.index %>">Добавить</button>
 				</div>
-				<table class="answers-list">
+				<table class="answers-list table-striped">
 					<tbody>
 					</tbody>
 				</table>
