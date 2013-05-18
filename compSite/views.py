@@ -35,22 +35,23 @@ def saveCompromise(request):
 		#send_mail(EMAIL_SUBJECT_CREATE, (EMAIL_TEXT_CREATE % "http://ya.ru/"), EMAIL_HOST_USER, [user])
 		currentCompromise = request.POST.get("json")	
 
-#		currentCompromise = json.loads(currentCompromise)
-	 	return HttpResponse(currentCompromise)
+		currentCompromise = json.loads(currentCompromise)
+
 	 	mongoConnection = Connection(host = "127.0.0.1", port=27017)["compDB"]["compromiseCollection"]
-	 	users = currentCompromise.get("users")
-	 	if not users:
-	 		return HttpResponse("no users in json")
+	 	users = currentCompromise.get("users", [])
+	 	#if not users:
+	 	#	return HttpResponse("no users in json")
 
 		recordId = mongoConnection.insert(currentCompromise)
 		
 		for user in users:
 			uniqDesc = md5(user + str(recordId)).hexdigest()
 			uniqUrl = ANSWER_URL + uniqDesc
-			mongoConnection.insert({"uniqDesc": uniqDesc})
+
+			mongoConnection.insert({"uniqDesc": uniqDesc, "idEvent": str(recordId)})
 			send_mail(EMAIL_SUBJECT_CREATE, (EMAIL_TEXT_CREATE % uniqUrl), EMAIL_HOST_USER, [user])
 
-		return HttpResponse("ok")
+		return HttpResponse({"status": "ok", "url": uniqUrl})
 
 	except TypeError:
 		return HttpResponse("bad json")
@@ -59,9 +60,9 @@ def renderAnswer(request):
 	uniqDesc = request.GET.get("id")
 	mongoConnection = Connection(host = "127.0.0.1", port=27017)["compDB"]["compromiseCollection"]
 	curAnswer = mongoConnection.find({"uniqDesc": uniqDesc})
-	#curAnswer = curAnswer.update()
-	mongoConnection.save()
-
+	idEvent = curAnswer.get("idEvent")
+	curEvent = mongoConnection.find({"_id": idEvent})
+	return HttpResponse(json.dumps(curEvent))
 
 def addAnswer(request):
 	try:
