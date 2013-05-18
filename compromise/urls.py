@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
 from django.conf.urls import patterns, include, url
-from compSite.views import hello, saveCompromise, index
+from compSite.views import *
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -19,5 +18,6 @@ urlpatterns = patterns('',
     # url(r'^admin/', include(admin.site.urls)),
     #url(r"[A-z]", hello),
     url(r"^addCompromise/", saveCompromise),
+    url(r"^oauth2google/", oauth2google),
     url(r"^$", index),
 )

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import json
 import smtplib
+#import requests
 #from email.mime.text import MIMEText
 from django.core.mail import send_mail
 from django.http import HttpResponse
@@ -8,7 +9,8 @@ from django.shortcuts import render_to_response
 from pymongo import Connection
 from hashlib import md5
 from compromise.settings import *
-
+from urllib import urlencode
+from httplib import HTTPSConnection
 
 def sendMail(subj, text, reciver):
 	msg = MIMEText(text)
@@ -24,7 +26,7 @@ def hello(request):
 	return HttpResponse("hello")
 
 
-def index(requests):
+def index(request):
 	return render_to_response("index.html")
 
 def saveCompromise(request):
@@ -80,3 +82,21 @@ def addAnswer(request):
 	#	return HttpResponse("bad json")
 	except TypeError:
 		return HttpResponse("bad json")
+
+def oauth2google(request):
+	#return HttpResponse(request.GET.get("code"))
+	postData = {
+		"code": request.GET.get("code"),
+		"client_id": "342640484025.apps.googleusercontent.com",
+		"client_secret": "K_4sKJDOYZ0GNdKkiOaihPfk",
+		"redirect_uri": "http//hardcoresoftware.ru:8000/",
+		"grant_type": "authorization_code"
+		}
+
+	path = "http://accounts.google.com:443/o/oauth2/token"
+	
+	headerData = {'Content-type': 'application/x-www-form-urlencoded'}
+	#HTTPSConnection()
+	#r = requests.post(path, data=urlencode(postData), headers=headerData)
+	#r = requests.post("http://ya.ru/")
+	#return HttpResponse(r.content)
