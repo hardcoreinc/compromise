@@ -6,7 +6,7 @@ import smtplib
 from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
-from pymongo import Connection, Objectid
+from pymongo import Connection
 from hashlib import md5
 from compromise.settings import *
 from urllib import urlencode
