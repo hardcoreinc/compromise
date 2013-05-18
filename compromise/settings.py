@@ -116,7 +116,7 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
 )
 
-
+ANSWER_URL = "http://hardcoresoftware.ru:8000/event?id="
 
 EMAIL_SUBJECT_CREATE = "Вы приглашенны для решения компромисса"
 EMAIL_TEXT_CREATE = "Перейдите по ссылке, что бы начать решать компроисс %s"
