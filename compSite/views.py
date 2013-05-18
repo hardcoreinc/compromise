@@ -65,27 +65,16 @@ def renderAnswer(request):
 	idEvent = curAnswer.get("idEvent")
 	curEvent = mongoConnection.find_one({"_id": ObjectId(idEvent)})
 	curEvent["_id"] = str(curEvent["_id"])
-	return HttpResponse(json.dumps([curEvent, str(idEvent)]))
+	return HttpResponse(json.dumps(curEvent))
 
 def addAnswer(request):
-	try:
-		currentCompromise = request.POST.get("compromise")
-		uniqDesc = request.GET.get("id")
-		currentCompromise = json.loads(currentCompromise)
-	 	
-	 	mongoConnection = Connection(host = "127.0.0.1", port=27017)
-	 	users = currentCompromise.get("users")
-	 	
-		["compDB"]["compromiseCollection"].insert(currentCompromise)
-		
-		for user in users:
-			send_mail(EMAIL_SUBJECT_CREATE, (EMAIL_TEXT_CREATE % "http://ya.ru/"), EMAIL_HOST_USER, [user])
-
-		return HttpResponse("ok")
-	#except ValueError:
-	#	return HttpResponse("bad json")
-	except TypeError:
-		return HttpResponse("bad json")
+	curAnswer = request.POST.get("json")
+	mongoConnection = Connection(host = "127.0.0.1", port=27017)["compDB"]["compromiseCollection"]
+	curRecord = mongoConnection.find_one({"_id": ObjectId(curAnswer["id"])})
+	del curAnswer["id"]
+	curRecord.update(curAnswer)
+	curRecord.save(curRecord)
+	return HttpResponse("ok")
 
 def oauth2google(request):
 	#return HttpResponse(request.GET.get("code"))
