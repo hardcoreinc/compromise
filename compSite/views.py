@@ -96,7 +96,7 @@ def oauth2google(request):
 	path = "http://accounts.google.com:443/o/oauth2/token"
 	
 	headerData = {'Content-type': 'application/x-www-form-urlencoded'}
-	#HTTPSConnection()
-	#r = requests.post(path, data=urlencode(postData), headers=headerData)
-	#r = requests.post("http://ya.ru/")
-	#return HttpResponse(r.content)
+	HTTPSConnection()
+	r = requests.post(path, data=urlencode(postData), headers=headerData)
+	r = requests.post("http://ya.ru/")
+	return HttpResponse(r.content)
