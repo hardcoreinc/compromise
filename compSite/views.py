@@ -5,7 +5,7 @@ import smtplib
 #from email.mime.text import MIMEText
 from django.core.mail import send_mail
 from django.http import HttpResponse
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect
 from pymongo import Connection
 from hashlib import md5
 from compromise.settings import *
@@ -29,7 +29,16 @@ def hello(request):
 
 
 def index(request):
-	return render_to_response("index.html")
+	if request.user.is_authenticated():
+		return redirect('/newevent/')
+	else:
+		return render_to_response("index.html")
+
+def newevent(request):
+	if request.user.is_anonymous():
+		return redirect('/')
+	else:
+		return render_to_response("newevent.html")
 
 def saveCompromise(request):
 	try:
@@ -75,21 +84,3 @@ def addAnswer(request):
 	curRecord.update(curAnswer)
 	curRecord.save(curRecord)
 	return HttpResponse("ok")
-
-def oauth2google(request):
-	#return HttpResponse(request.GET.get("code"))
-	postData = {
-		"code": request.GET.get("code"),
-		"client_id": "342640484025.apps.googleusercontent.com",
-		"client_secret": "K_4sKJDOYZ0GNdKkiOaihPfk",
-		"redirect_uri": "http//hardcoresoftware.ru:8000/",
-		"grant_type": "authorization_code"
-		}
-
-	path = "http://accounts.google.com:443/o/oauth2/token"
-	
-	headerData = {'Content-type': 'application/x-www-form-urlencoded'}
-	HTTPSConnection()
-	r = requests.post(path, data=urlencode(postData), headers=headerData)
-	r = requests.post("http://ya.ru/")
-	return HttpResponse(r.content)

@@ -133,6 +133,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social_auth',
     "compSite",
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
@@ -168,3 +169,12 @@ LOGGING = {
         },
     }
 }
+
+AUTHENTICATION_BACKENDS = (
+    'social_auth.backends.google.GoogleOAuth2Backend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+GOOGLE_OAUTH2_CLIENT_ID      = '342640484025.apps.googleusercontent.com'
+GOOGLE_OAUTH2_CLIENT_SECRET  = 'K_4sKJDOYZ0GNdKkiOaihPfk'
+LOGIN_REDIRECT_URL           = '/newevent'
