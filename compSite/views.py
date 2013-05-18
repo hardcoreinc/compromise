@@ -79,6 +79,7 @@ def renderAnswer(request):
 
 def addAnswer(request):
 	curAnswer = request.POST.get("json")
+	curAnswer = json.loads(curAnswer)
 	mongoConnection = Connection(host = "127.0.0.1", port=27017)["compDB"]["compromiseCollection"]
 	curRecord = mongoConnection.find_one({"_id": ObjectId(curAnswer["_id"])})
 	del curAnswer["_id"]
