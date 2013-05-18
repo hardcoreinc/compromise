@@ -35,10 +35,10 @@ def index(request):
 		return render_to_response("index.html")
 
 def newevent(request):
-	if request.user.is_anonymous():
-		return redirect('/')
-	else:
-		return render_to_response("newevent.html")
+#	if request.user.is_anonymous():
+#		return redirect('/')
+#	else:
+	return render_to_response("newevent.html")
 
 def saveCompromise(request):
 	try:
