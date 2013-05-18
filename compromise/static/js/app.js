@@ -127,7 +127,12 @@ $(function() {
 			var name = $(self.name).val();
 			var type = $(self.type).val();
 			if(name == '') return;
-			self.options.questions.add_item({name: name, type: type});
+			self.options.questions.add_item({
+				name: name, 
+				type: type,
+				min: 0,
+				max: 100
+			});
 
 			
 		},
@@ -211,8 +216,10 @@ $(function() {
 			});
 
 			// ajax
-			$.post('/addevent', {json: JSON.stringify(json)}).done(function() {
-	
+			$.post('/addevent', {json: JSON.stringify(json)}).done(function(msg) {
+				console.log(msg);
+			}).fail(function(msg) {
+				console.log(msg);
 			});
 		}
 		
