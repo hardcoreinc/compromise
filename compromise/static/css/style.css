@@ -53,6 +53,7 @@ div.span3{
 #question-type {
 	margin: 0 !important;
 }
+
 .question {
 	margin: 10px 0 5px 10px;
 }
@@ -61,9 +62,13 @@ div.span3{
 }
 #questions-list  {
 	width: 538px !important;
+	margin-top: 10px;
 }
 #questions-list .name {
 	width: 300px !important;
+}
+#questions-list .index div {
+	padding: 20px 0;
 }
 #questions-list tr {
 	height: 30px !important;
@@ -72,14 +77,17 @@ div.span3{
 	margin-right: 5px;
 }
 .answers-list  {
-	width: 200px !important;
-	margin: 0 auto;
+	width: 310px !important;
+	margin: 10px 50px 0 103px;
 }
 .answers-list .name {
-	width: 100px !important;
+	width: 200px !important;
 }
 .answers-list tr {
 	height: 30px !important;
+}
+.answers-list .index div {
+	padding: 20px 0;
 }
 .modal-body .controls {
 	margin: 0 100px;
