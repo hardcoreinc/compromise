@@ -1,5 +1,5 @@
-# Django settings for compromise project.
-
+# -*- coding: utf-8 -*-
+import os
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -50,8 +50,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
-MEDIA_ROOT = ''
-
+MEDIA_ROOT = ""
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://example.com/media/", "http://media.example.com/"
@@ -61,7 +60,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = os.path.join(os.path.expanduser('~'), 'compromise-front/')
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -69,6 +68,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
+    "/home/petr/compromise-front/static",
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -108,10 +108,21 @@ ROOT_URLCONF = 'compromise.urls'
 WSGI_APPLICATION = 'compromise.wsgi.application'
 
 TEMPLATE_DIRS = (
+    "/home/petr/compromise-front/templates/",
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )
+
+
+
+EMAIL_SUBJECT_CREATE = "Вы приглашенны для решения компромисса"
+EMAIL_TEXT_CREATE = "Перейдите по ссылке, что бы начать решать компроисс %s"
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'kniaz1234@gmail.com'
+EMAIL_HOST_PASSWORD = 'Gin$i0us'
+EMAIL_USE_TLS = True
 
 INSTALLED_APPS = (
     'django.contrib.auth',
