@@ -36,7 +36,7 @@ def saveCompromise(request):
 		currentCompromise = request.POST.get("json")	
 
 #		currentCompromise = json.loads(currentCompromise)
-	 	return HttpResponse(currentCompromise)
+
 	 	mongoConnection = Connection(host = "127.0.0.1", port=27017)["compDB"]["compromiseCollection"]
 	 	users = currentCompromise.get("users")
 	 	if not users:
@@ -50,7 +50,7 @@ def saveCompromise(request):
 			mongoConnection.insert({"uniqDesc": uniqDesc})
 			send_mail(EMAIL_SUBJECT_CREATE, (EMAIL_TEXT_CREATE % uniqUrl), EMAIL_HOST_USER, [user])
 
-		return HttpResponse("ok")
+		return HttpResponse({"status": "ok", "url": uniqUrl})
 
 	except TypeError:
 		return HttpResponse("bad json")
