@@ -211,6 +211,9 @@ $(function() {
 			});
 
 			// ajax
+			$.post('/addevent', {json: JSON.stringify(json)}).done(function() {
+	
+			});
 		}
 		
 	});
