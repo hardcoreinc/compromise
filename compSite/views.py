@@ -30,7 +30,6 @@ def index(request):
 	return render_to_response("index.html")
 
 def saveCompromise(request):
-	return HttpResponse("ok")
 	try:
 		#user = "kniaz1234@gmail.com"
 		#send_mail(EMAIL_SUBJECT_CREATE, (EMAIL_TEXT_CREATE % "http://ya.ru/"), EMAIL_HOST_USER, [user])
