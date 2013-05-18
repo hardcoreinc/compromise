@@ -18,7 +18,7 @@
 		<div class="span3" id="id4"></div>
 	</div>
 	<div>
-	<center><h3>Попробуй сейчас! Войди с помощью <a href="https://accounts.google.com/o/oauth2/auth?redirect_uri=http%3A%2F%2Fhardcoresoftware.ru%3A8000%2Foauth2google&response_type=code&client_id=342640484025.apps.googleusercontent.com&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile" title="Войти через Google"><img width="100px" src="../static/img/gmail.png" /></a>
+	<center><h3>Попробуй сейчас! Войди с помощью <a href="{% url 'socialauth_begin' 'google-oauth2' %}" title="Войти через Google"><img width="100px" src="../static/img/gmail.png" /></a>
 
 	<a href="https://oauth.yandex.ru/authorize?response_type=code&client_id=bed4f2696a58489c8e9c7524b10b0681" title="Яндекс"><img width="100px" SRC="../static/img/yandex.png"></a>
 	</h3></center>

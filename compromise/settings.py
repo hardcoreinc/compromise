@@ -14,7 +14,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '/home/petr/sqlbase/base.sql',                      # Or path to database file if using sqlite3.
+        'NAME': os.path.join(SITE_ROOT, 'base.sql'),                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': '',
         'PASSWORD': '',
@@ -133,6 +133,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social_auth',
     "compSite",
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
@@ -168,3 +169,12 @@ LOGGING = {
         },
     }
 }
+
+AUTHENTICATION_BACKENDS = (
+    'social_auth.backends.google.GoogleOAuth2Backend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+GOOGLE_OAUTH2_CLIENT_ID      = '342640484025.apps.googleusercontent.com'
+GOOGLE_OAUTH2_CLIENT_SECRET  = 'K_4sKJDOYZ0GNdKkiOaihPfk'
+LOGIN_REDIRECT_URL           = '/newevent'
