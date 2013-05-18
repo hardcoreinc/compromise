@@ -53,6 +53,7 @@ def saveCompromise(request):
 		if not users:
 			users = ['kniaz1234@gmail.com', 'michaelpak@live.ru', "russtone@yandex.ru"]
 
+		currentCompromise["type"] = "event"
 		recordId = mongoConnection.insert(currentCompromise)
 
 		for user in users:
@@ -69,7 +70,7 @@ def saveCompromise(request):
 
 def renderAnswer(request):
 	uniqDesc = request.GET.get("id")
-	mongoConnection = Connection(host = "127.0.0.1", port=27017)["compDB"]["compromiseCollection"]
+	mongoConnection = Connection(host="127.0.0.1", port=27017)["compDB"]["compromiseCollection"]
 	curAnswer = mongoConnection.find_one({"uniqDesc": uniqDesc})
 	idEvent = curAnswer.get("idEvent")
 	curEvent = mongoConnection.find_one({"_id": ObjectId(idEvent)})
@@ -78,9 +79,10 @@ def renderAnswer(request):
 
 def addAnswer(request):
 	curAnswer = request.POST.get("json")
+	curAnswer = json.loads(curAnswer)
 	mongoConnection = Connection(host = "127.0.0.1", port=27017)["compDB"]["compromiseCollection"]
-	curRecord = mongoConnection.find_one({"_id": ObjectId(curAnswer["id"])})
-	del curAnswer["id"]
+	curRecord = mongoConnection.find_one({"_id": ObjectId(curAnswer["_id"])})
+	del curAnswer["_id"]
 	curRecord.update(curAnswer)
-	curRecord.save(curRecord)
+	mongoConnection.save(curRecord)
 	return HttpResponse("ok")
