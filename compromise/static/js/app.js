@@ -223,7 +223,7 @@ $(function() {
 				timestamp: new Date().getTime()
 			};
 			// ajax
-			$.post('/addevent/', {json: JSON.stringify(json)}).done(function(msg) {
+			$.post('/addevent/', {json: JSON.stringify(data)}).done(function(msg) {
 				console.log(msg);
 			}).fail(function(msg) {
 				console.log(msg);
