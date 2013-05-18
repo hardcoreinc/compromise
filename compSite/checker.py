@@ -7,8 +7,8 @@ for event in mongoConnection.find({'type': 'event'}):
 	idEvent = event["_id"]
 	timeEvent = event["timestamp"]
 	deltaTime = time() - timeEvent
-	if deltaTime < 600:
-		continue
+#	if deltaTime < 600:
+#		continue
 #	for event1 in mongoConnection.find({'idEvent': str(idEvent)})
 	print json.dumps(event), 1
-#	print "aba"
+	print "aba"
