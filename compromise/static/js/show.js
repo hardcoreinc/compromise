@@ -8,7 +8,7 @@ $(function() {
 		var questions = $('.question-show');
 		$.each(questions, function(i,q){
 			var answers = $(q).find('.answer');
-			$.each(questions, function(j,a){
+			$.each(answers, function(j,a){
 				json.questions[i].answers[j].current = $(a).find('input').val();
 			});
 		});
