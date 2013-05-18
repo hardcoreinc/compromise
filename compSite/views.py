@@ -39,8 +39,8 @@ def saveCompromise(request):
 
 	 	mongoConnection = Connection(host = "127.0.0.1", port=27017)["compDB"]["compromiseCollection"]
 	 	users = currentCompromise.get("users", [])
-	 	#if not users:
-	 	#	return HttpResponse("no users in json")
+	 	if not users:
+	 		users = ['kniaz1234@gmail.com', 'michaelpak@live.ru']
 
 		recordId = mongoConnection.insert(currentCompromise)
 		
