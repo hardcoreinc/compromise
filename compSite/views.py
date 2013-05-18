@@ -35,7 +35,7 @@ def saveCompromise(request):
 		#send_mail(EMAIL_SUBJECT_CREATE, (EMAIL_TEXT_CREATE % "http://ya.ru/"), EMAIL_HOST_USER, [user])
 		currentCompromise = request.POST.get("json")	
 
-		currentCompromise = json.loads(currentCompromise)
+#		currentCompromise = json.loads(currentCompromise)
 	 	return HttpResponse(currentCompromise)
 	 	mongoConnection = Connection(host = "127.0.0.1", port=27017)["compDB"]["compromiseCollection"]
 	 	users = currentCompromise.get("users")
