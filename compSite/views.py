@@ -38,7 +38,7 @@ def saveCompromise(request):
 		currentCompromise = json.loads(currentCompromise)
 
 	 	mongoConnection = Connection(host = "127.0.0.1", port=27017)["compDB"]["compromiseCollection"]
-	 	users = currentCompromise.get("users")
+	 	users = currentCompromise.get("users", [])
 	 	#if not users:
 	 	#	return HttpResponse("no users in json")
 
@@ -47,7 +47,8 @@ def saveCompromise(request):
 		for user in users:
 			uniqDesc = md5(user + str(recordId)).hexdigest()
 			uniqUrl = ANSWER_URL + uniqDesc
-			mongoConnection.insert({"uniqDesc": uniqDesc})
+
+			mongoConnection.insert({"uniqDesc": uniqDesc, "idEvent": str(recordId)})
 			send_mail(EMAIL_SUBJECT_CREATE, (EMAIL_TEXT_CREATE % uniqUrl), EMAIL_HOST_USER, [user])
 
 		return HttpResponse({"status": "ok", "url": uniqUrl})
@@ -59,9 +60,9 @@ def renderAnswer(request):
 	uniqDesc = request.GET.get("id")
 	mongoConnection = Connection(host = "127.0.0.1", port=27017)["compDB"]["compromiseCollection"]
 	curAnswer = mongoConnection.find({"uniqDesc": uniqDesc})
-	#curAnswer = curAnswer.update()
-	mongoConnection.save()
-
+	idEvent = curAnswer.get("idEvent")
+	curEvent = mongoConnection.find({"_id": idEvent})
+	return HttpResponse(json.dumps(curEvent))
 
 def addAnswer(request):
 	try:

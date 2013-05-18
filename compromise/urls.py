@@ -22,5 +22,6 @@ urlpatterns = patterns('',
     url(r"^addevent/", saveCompromise),
     url(r"^newevent/", TemplateView.as_view(template_name='newevent.html')),
     url(r"^oauth2google/", oauth2google),
+    url(r"^event/", renderAnswer),
     url(r"^$", index),
 )
