@@ -106,6 +106,8 @@ $(function() {
 			'click #questions-list .delete': 'delete_question',
 			'click .question .edit': 'show_modal',
 			'click #modal .add-answer': 'add_answer',
+			'click #modal .delete': 'delete_answer',
+			'click #save-event': 'save_event',
 		},
 		initialize: function() {
 			var self = this;
@@ -118,8 +120,6 @@ $(function() {
 
 			self.options.questions.bind('add', self.render_question, self);
 			self.options.questions.bind('remove', self.render_question, self);
-
-			
 
 		},
 		add_question: function() {
@@ -168,6 +168,7 @@ $(function() {
 			var model = self.options.questions.where({index: parseInt(index)});
 			model = model[0];
 			$('#modal').html(self.modal_template({data: model.attributes}));
+			self.render_answers(null, model.get('answers'));
 			$(modal).modal();
 		},
 		add_answer: function(e) {
@@ -177,7 +178,7 @@ $(function() {
 			var index = $(e.target).attr('data-index');
 			var model = self.options.questions.where({index: parseInt(index)});
 			model = model[0];
-			var a = model.get('answers').add_item({name: name});
+			model.get('answers').add_item({name: name, p_index: model.get('index')});
 
 		},
 		render_answers: function(model, collection) {
@@ -187,12 +188,29 @@ $(function() {
 			collection.forEach(function(model, index) {
 				var icon_class ='';
 				var el = self.answer_template({
-					index: index, 
+					index_answer: index, 
+					index_question: model.get('p_index'), 
 					name: model.get('name'),
-					icon_class: icon_class,
 				});
-				self.$el.find('#questions-list tbody').append(el);
+				self.$el.find('#modal .answers-list tbody').append(el);
 			});
+		},
+		delete_answer: function(e) {
+			var self = this;
+			var p_index = $(e.target).closest('tr').attr('data-index-question');
+			var model = self.options.questions.where({index: parseInt(p_index)});
+			model = model[0];
+			var index = $(e.target).closest('tr').attr('data-index-answer');
+			model.get('answers').delete_item(index);
+		},
+		save_event: function() {
+			var self = this;
+			var json = self.options.questions.toJSON();
+			$.each(json, function(index, value) {
+				json[index].answers = json[index].answers.toJSON();
+			});
+
+			// ajax
 		}
 		
 	});

@@ -47,8 +47,6 @@ div.span3{
 	float: none;
 }
 #question-name {
-	height: 30px;
-	line-height: 30px;
 	border-radius: 4px;
 	margin: 0;
 }
@@ -70,12 +68,23 @@ div.span3{
 #questions-list tr {
 	height: 30px !important;
 }
+.answers-list i{
+	margin-right: 5px;
+}
+.answers-list  {
+	width: 200px !important;
+	margin: 0 auto;
+}
+.answers-list .name {
+	width: 100px !important;
+}
+.answers-list tr {
+	height: 30px !important;
+}
 .modal-body .controls {
 	margin: 0 100px;
 }
 .modal-body input {
-	line-height: 30px;
-	height: 30px;
 	margin: 0;
 }
 input.hide {
@@ -96,4 +105,9 @@ input.hide {
 .delete:hover {
 	opacity: 1;
 	cursor: pointer;
+}
+#save-event {
+	margin-top: 40px;
+	position: relative;
+	right: 0;
 }

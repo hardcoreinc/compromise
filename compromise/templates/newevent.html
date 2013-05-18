@@ -70,8 +70,8 @@
   		</script>
 
   		<script type="text/template" id="answer-tr-tpl">
-			<tr class="question" data-index="<%= index %>">
-				<td class="index"><%= index + 1 %></td>
+			<tr class="question" data-index-question="<%= index_question %>" data-index-answer="<%= index_answer %>">
+				<td class="index"><%= index_answer + 1 %></td>
 				<td class="name">
 					<span><%= name %></span>
 					<input class="hide" type="text">
@@ -103,6 +103,8 @@
 				<button class="btn btn-success" data-dismiss="modal" aria-hidden="true">Готово</button>
 			</div>
   		</script>
+  		<button id="save-event" class="btn btn-success" type="button">Сохранить</button>
 	</form>
+
 </body>
 </html>
