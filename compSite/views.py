@@ -33,7 +33,7 @@ def saveCompromise(request):
 	try:
 		#user = "kniaz1234@gmail.com"
 		#send_mail(EMAIL_SUBJECT_CREATE, (EMAIL_TEXT_CREATE % "http://ya.ru/"), EMAIL_HOST_USER, [user])
-		currentCompromise = request.POST.get("compromise")	
+		currentCompromise = request.POST.get("json")	
 
 		currentCompromise = json.loads(currentCompromise)
 	 	return HttpResponse(currentCompromise)
