@@ -1,5 +1,7 @@
+# -*- coding: utf-8 -*-
 from django.conf.urls import patterns, include, url
 from compSite.views import *
+from django.views.generic import TemplateView
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -18,6 +20,7 @@ urlpatterns = patterns('',
     # url(r'^admin/', include(admin.site.urls)),
     #url(r"[A-z]", hello),
     url(r"^addCompromise/", saveCompromise),
+    url(r"^newevent/", TemplateView.as_view(template_name='newevent.html')),
     url(r"^oauth2google/", oauth2google),
     url(r"^$", index),
 )
