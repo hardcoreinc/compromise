@@ -6,11 +6,13 @@ import smtplib
 from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
-from pymongo import Connection
+from pymongo import Connection, Objectid
 from hashlib import md5
 from compromise.settings import *
 from urllib import urlencode
 from httplib import HTTPSConnection
+from bson.objectid import ObjectId
+
 
 def sendMail(subj, text, reciver):
 	msg = MIMEText(text)
@@ -61,7 +63,7 @@ def renderAnswer(request):
 	mongoConnection = Connection(host = "127.0.0.1", port=27017)["compDB"]["compromiseCollection"]
 	curAnswer = mongoConnection.find_one({"uniqDesc": uniqDesc})
 	idEvent = curAnswer.get("idEvent")
-	curEvent = mongoConnection.find_one({"_id": idEvent})
+	curEvent = mongoConnection.find_one({"_id": ObjectId(idEvent)})
 	return HttpResponse(json.dumps([curEvent, str(idEvent)]))
 
 def addAnswer(request):
