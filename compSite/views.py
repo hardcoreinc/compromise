@@ -65,7 +65,7 @@ def renderAnswer(request):
 	idEvent = curAnswer.get("idEvent")
 	curEvent = mongoConnection.find_one({"_id": ObjectId(idEvent)})
 	curEvent["_id"] = str(curEvent["_id"])
-	return HttpResponse(json.dumps(curEvent))
+	return render_to_response("showevent.html", {"json": json.dumps(curEvent)})
 
 def addAnswer(request):
 	curAnswer = request.POST.get("json")
