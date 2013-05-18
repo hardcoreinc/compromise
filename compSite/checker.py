@@ -10,5 +10,4 @@ for event in mongoConnection.find({'type': 'event'}):
 #	if deltaTime < 600:
 #		continue
 #	for event1 in mongoConnection.find({'idEvent': str(idEvent)})
-	print json.dumps(event), 1
-	print "aba"
+	print event
