@@ -3,6 +3,8 @@ import os
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
+
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
@@ -60,7 +62,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = os.path.join(os.path.expanduser('~'), 'compromise-front/')
+STATIC_ROOT = os.path.join(SITE_ROOT, 'static/upload/')
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -68,7 +70,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    "/home/petr/compromise-front/static",
+    os.path.join(SITE_ROOT, "static/"),
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -108,7 +110,7 @@ ROOT_URLCONF = 'compromise.urls'
 WSGI_APPLICATION = 'compromise.wsgi.application'
 
 TEMPLATE_DIRS = (
-    "/home/petr/compromise-front/templates/",
+    os.path.join(SITE_ROOT, "templates/"),
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
