@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta name="MichaelPak" content="Cash2Friend" />
+    <title>Compromise | Новое событие</title>
+    
+    <!-- STYLES -->
+	<link rel="stylesheet" type="text/css" href="../static/ext/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../static/css/style.css">
+	<link rel="stylesheet" type="text/css" href="../static/ext/datepicker/css/datepicker.css">
+	<link rel="stylesheet" type="text/css" href="../static/ext/timepicker/css/bootstrap-timepicker.min.css">
+	
+		
+	<!-- SCRIPTS -->
+	<script type="text/javascript" src="../static/js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="../static/ext/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../static/js/underscore-min.js"></script>
+	<script type="text/javascript" src="../static/js/json2.js"></script>
+	<script type="text/javascript" src="../static/js/backbone-min.js"></script>
+	<script type="text/javascript" src="../static/js/app.js"></script>
+	<script type="text/javascript" src="../static/ext/datepicker/js/bootstrap-datepicker.js"></script>
+	<script type="text/javascript" src="../static/ext/timepicker/js/bootstrap-timepicker.min.js"></script>
+    
+    
+</head>
+<body>
+	<div class="page-header">
+		<h1>Создание <small>нового события</small></h1>
+	</div>
+	<form id="questions" class="span7">
+		<div class="controls">
+			<input id="question-name" class="span4" type="text" placeholder="Вопрос">
+			<select id="question-type" class="span2">
+				<option value="list">Список</option>
+				<option value="number">Число</option>
+				<option value="date_time">Дата/Время</option>
+			</select>
+			<button id="question-add" class="btn btn-primary" type="button">Добавить</button>
+		</div>
+
+		<!-- Modal -->
+		<div id="modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			
+		</div>
+
+
+		<table id="questions-list">
+			<tbody>
+			</tbody>
+		</table>
+
+		<script type="text/template" id="question-tr-tpl">
+			<tr class="question" data-index="<%= index %>">
+				<td class="index"><%= index + 1 %></td>
+				<td>
+					<i class="<%= icon_class %>"></i>
+				</td>
+				<td class="name">
+					<span><%= name %></span>
+					<input class="hide" type="text">
+				</td>
+				<td class="edit">
+					<i class="icon-edit"></i>
+				</td>
+				<td class="delete">
+					<i class="icon-remove-sign"></i>
+				</td>
+			</tr>
+  		</script>
+
+  		<script type="text/template" id="answer-tr-tpl">
+			<tr class="question" data-index="<%= index %>">
+				<td class="index"><%= index + 1 %></td>
+				<td class="name">
+					<span><%= name %></span>
+					<input class="hide" type="text">
+				</td>
+				<td class="delete">
+					<i class="icon-remove-sign"></i>
+				</td>
+			</tr>
+  		</script>
+
+  		<script type="text/template" id="modal-tpl">
+  			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h3 class="header"><%= data.name %></h3>
+			</div>
+			<div class="modal-body">
+				<% if(data.type == 'list'){ %>
+					<div class="controls">
+						<input class="span3 answer-name" type="text" placeholder="Ответ">
+						<button class="btn btn-primary add-answer" type="button" data-index="<%= data.index %>">Добавить</button>
+					</div>
+				<% } %>
+				<table class="answers-list">
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-success" data-dismiss="modal" aria-hidden="true">Готово</button>
+			</div>
+  		</script>
+	</form>
+</body>
+</html>

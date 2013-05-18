@@ -1,0 +1,99 @@
+body{
+	margin: 0;
+	padding: 0;
+	background-color: white;
+}
+
+div.page-header{
+	margin: auto;
+	text-align: center;
+	width: 800px;
+}
+
+div.row-fluid{
+	width: 1000px;
+	margin: auto;
+}
+
+div.span3{
+	height: 300px;
+}
+
+#id1{
+	background-color: #69D2E7;
+}
+#id2{
+	background-color: #A7DBD8;
+}
+#id3{
+	background-color: #E0E4CC;
+}
+#id4{
+	background-color: #F38630;
+}
+
+
+/********************************/
+
+#questions {
+	margin: 100px auto !important;
+	position: relative;
+	padding: 39px 19px 14px;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	float: none;
+}
+#question-name {
+	height: 30px;
+	line-height: 30px;
+	border-radius: 4px;
+	margin: 0;
+}
+#question-type {
+	margin: 0 !important;
+}
+.question {
+	margin: 10px 0 5px 10px;
+}
+#questions-list i{
+	margin-right: 5px;
+}
+#questions-list  {
+	width: 584px !important;
+}
+#questions-list .name {
+	width: 300px !important;
+}
+#questions-list tr {
+	height: 30px !important;
+}
+.modal-body .controls {
+	margin: 0 100px;
+}
+.modal-body input {
+	line-height: 30px;
+	height: 30px;
+	margin: 0;
+}
+input.hide {
+	display: none;
+}
+.edit {
+	opacity: 0.5;
+
+}
+.edit:hover {
+	opacity: 1;
+	cursor: pointer;
+}
+.delete {
+	opacity: 0.5;
+
+}
+.delete:hover {
+	opacity: 1;
+	cursor: pointer;
+}
