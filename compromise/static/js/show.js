@@ -12,7 +12,7 @@ $(function() {
 				json.questions[i].answers[j].current = $(a).find('input').val();
 			});
 		});
-		$.post('/addenswer/', {json: JSON.stringify(json)}).done(function(msg) {
+		$.post('/addanswer/', {json: JSON.stringify(json)}).done(function(msg) {
 			console.log(msg);
 		}).fail(function(msg) {
 			console.log(msg);
