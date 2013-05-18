@@ -19,7 +19,7 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
     #url(r"[A-z]", hello),
-    url(r"^addevent/", saveCompromise),
+    url(r"^addevent", saveCompromise),
     url(r"^newevent/", TemplateView.as_view(template_name='newevent.html')),
     url(r"^oauth2google/", oauth2google),
     url(r"^$", index),
