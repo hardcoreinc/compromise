@@ -33,17 +33,17 @@ def saveCompromise(request):
 	try:
 		#user = "kniaz1234@gmail.com"
 		#send_mail(EMAIL_SUBJECT_CREATE, (EMAIL_TEXT_CREATE % "http://ya.ru/"), EMAIL_HOST_USER, [user])
-		currentCompromise = request.POST.get("json")	
+		currentCompromise = request.POST.get("json")
 
 		currentCompromise = json.loads(currentCompromise)
 
-	 	mongoConnection = Connection(host = "127.0.0.1", port=27017)["compDB"]["compromiseCollection"]
-	 	users = currentCompromise.get("users", [])
-	 	if not users:
-	 		users = ['kniaz1234@gmail.com', 'michaelpak@live.ru']
+		mongoConnection = Connection(host="127.0.0.1", port=27017)["compDB"]["compromiseCollection"]
+		users = currentCompromise.get("users", [])
+		if not users:
+			users = ['kniaz1234@gmail.com', 'michaelpak@live.ru']
 
 		recordId = mongoConnection.insert(currentCompromise)
-		
+
 		for user in users:
 			uniqDesc = md5(user + str(recordId)).hexdigest()
 			uniqUrl = ANSWER_URL + uniqDesc
@@ -51,7 +51,7 @@ def saveCompromise(request):
 			mongoConnection.insert({"uniqDesc": uniqDesc, "idEvent": str(recordId)})
 			send_mail(EMAIL_SUBJECT_CREATE, (EMAIL_TEXT_CREATE % uniqUrl), EMAIL_HOST_USER, [user])
 
-		return HttpResponse({"status": "ok", "url": uniqUrl})
+		return HttpResponse('{"status": "ok", "url": %s}' % uniqUrl)
 
 	except TypeError:
 		return HttpResponse("bad json")
@@ -59,9 +59,9 @@ def saveCompromise(request):
 def renderAnswer(request):
 	uniqDesc = request.GET.get("id")
 	mongoConnection = Connection(host = "127.0.0.1", port=27017)["compDB"]["compromiseCollection"]
-	curAnswer = mongoConnection.find({"uniqDesc": uniqDesc})
+	curAnswer = mongoConnection.find_one({"uniqDesc": uniqDesc})
 	idEvent = curAnswer.get("idEvent")
-	curEvent = mongoConnection.find({"_id": idEvent})
+	curEvent = mongoConnection.find_one({"_id": idEvent})
 	return HttpResponse(json.dumps(curEvent))
 
 def addAnswer(request):
