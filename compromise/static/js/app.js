@@ -149,13 +149,13 @@ $(function() {
 				var icon_class ='';
 				switch(model.get('type')) {
 					case 'list':
-						icon_class = 'icon-list';
+						icon_class = 'list';
 					break;
 					case 'number':
 						icon_class = 'icon-asterisk';
 					break;
 					case 'date_time':
-						icon_class = 'icon-time';
+						icon_class = 'date';
 					break;
 				}
 				var el = self.question_template({
@@ -174,6 +174,9 @@ $(function() {
 			model = model[0];
 			$('#modal').html(self.modal_template({data: model.attributes}));
 			self.render_answers(null, model.get('answers'));
+			if(model.get('type') == 'date_time') {
+				$('#modal .answer-name').datepicker();
+			}
 			$(modal).modal();
 		},
 		add_answer: function(e) {
@@ -214,7 +217,11 @@ $(function() {
 			$.each(json, function(index, value) {
 				json[index].answers = json[index].answers.toJSON();
 			});
-
+			var data = {
+				questions: json,
+				users: [],
+				timestamp: new Date().getTime()
+			};
 			// ajax
 			$.post('/addevent/', {json: JSON.stringify(json)}).done(function(msg) {
 				console.log(msg);

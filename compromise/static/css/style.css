@@ -60,7 +60,7 @@ div.span3{
 	margin-right: 5px;
 }
 #questions-list  {
-	width: 584px !important;
+	width: 538px !important;
 }
 #questions-list .name {
 	width: 300px !important;
@@ -92,7 +92,6 @@ input.hide {
 }
 .edit {
 	opacity: 0.5;
-
 }
 .edit:hover {
 	opacity: 1;
