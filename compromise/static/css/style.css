@@ -83,6 +83,16 @@ div.span3{
 .answers-list .index div {
 	padding: 20px 0;
 }
+.users-list  {
+	width: 310px !important;
+	margin-top: 10px;
+}
+.users-list .name {
+	width: 200px !important;
+}
+.users-list .index div {
+	padding: 20px 0;
+}
 .users {
 	margin-top: 10px;
 }
