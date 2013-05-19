@@ -125,6 +125,8 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'petr@hardcoresoftware.ru'
 EMAIL_HOST_PASSWORD = 'eJzDhjPggI6H2I7GALTB3JGz8'
 EMAIL_USE_TLS = True
+EMAIL_SUBJECT_RESULT = "Решение принято"
+EMAIL_TEXT_RESULT = "Перейдите по ссылке, что бы увидеть решение %s\n\r\n\rС уважением,\r\nКоманда HardCore Software"
 
 INSTALLED_APPS = (
     'django.contrib.auth',
