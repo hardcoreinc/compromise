@@ -35,14 +35,13 @@
 		<div class="controls">
 			
 		</div>
-  		<button id="ok-event" class="btn btn-success" type="button">Ok</button>
 	</form>
 	<script type="text/template" id="question-div">
 		<div class="question-show">
 			<h3><%= data.name %></h3>
 			<% _.each(data.answers, function(i) { %>
 				<div class="answer">
-					<div><%= i.name %>
+					<div class="answer"><%= i.name %>
 				<div>
 			<% }); %>
 		</div>
