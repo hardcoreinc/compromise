@@ -115,7 +115,7 @@ def ready(request):
 		for a in q["answers"]:
 			a["current"] = 0.0
 	answers = Connection(host="127.0.0.1", port=27017)['compDB']['answers']
-	for answer in answers.find({'compromise_id': compromise_id}):
+	for answer in answers.find({'compromise_id': ObjectId(compromise_id)}):
 		for i, q in enumerate(answer["questions"]):
 			for j, a in enumerate(q["answers"]):
 				compromise["questions"][i]["answers"][j]["current"] += float(a["current"])
@@ -127,7 +127,7 @@ def ready(request):
 		del q["answers"][1:]
 
 	del compromise["_id"]
-	return render_to_response("showevent.html", {"json": json.dumps(compromise)})
+	return render_to_response("readyevent.html", {"json": json.dumps(compromise)})
 
 
 
