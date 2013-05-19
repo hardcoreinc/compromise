@@ -78,6 +78,7 @@ def renderAnswer(request):
 	return render_to_response("showevent.html", {"json": json.dumps(curEvent)})
 
 def addAnswer(request):
+	return HttpResponse("SHIT")
 	curAnswer = request.POST.get("json")
 	curAnswer = json.loads(curAnswer)
 	mongoConnection = Connection(host = "127.0.0.1", port=27017)["compDB"]["compromiseCollection"]
