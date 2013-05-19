@@ -266,6 +266,7 @@ $(function() {
 			// ajax
 			$.post('/addevent/', {json: JSON.stringify(data)}).done(function(msg) {
 				console.log(msg);
+				window.location = msg['url'];
 			}).fail(function(msg) {
 				console.log(msg);
 			});
