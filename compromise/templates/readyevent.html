@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<script>
+ json = {{ json|safe }}
+</script>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta name="MichaelPak" content="Cash2Friend" />
+    <title>Compromise | Результат</title>
+    
+    <!-- STYLES -->
+	<link rel="stylesheet" type="text/css" href="../static/ext/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../static/css/style.css">
+	<link rel="stylesheet" type="text/css" href="../static/ext/datepicker/css/datepicker.css">
+	<link rel="stylesheet" type="text/css" href="../static/ext/timepicker/css/bootstrap-timepicker.min.css">
+	<link rel="stylesheet" type="text/css" href="../static/ext/slider/css/simple-slider.css" />
+
+	<!-- SCRIPTS -->
+	<script type="text/javascript" src="../static/js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="../static/ext/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../static/js/underscore-min.js"></script>
+	<script type="text/javascript" src="../static/js/json2.js"></script>
+	<script type="text/javascript" src="../static/js/backbone-min.js"></script>
+	<script type="text/javascript" src="../static/js/show.js"></script>
+	<script type="text/javascript" src="../static/ext/datepicker/js/bootstrap-datepicker.js"></script>
+	<script type="text/javascript" src="../static/ext/timepicker/js/bootstrap-timepicker.min.js"></script>
+    <script type="text/javascript" src="../static/ext/slider/js/simple-slider.min.js"></script>
+    
+</head>
+<body>
+	<div class="page-header">
+		<h1>Результат <small>вычисления</small></h1>
+	</div>
+	<form id="questions" class="span7">
+		<div class="controls">
+			
+		</div>
+  		<button id="ok-event" class="btn btn-success" type="button">Ok</button>
+	</form>
+	<script type="text/template" id="question-div">
+		<div class="question-show">
+			<h3><%= data.name %></h3>
+			<% _.each(data.answers, function(i) { %>
+				<div class="answer">
+					<div><%= i.name %>
+					<div><%= i.current %>
+				<div>
+			<% }); %>
+		</div>
+	</script>
+</body>
+</html>

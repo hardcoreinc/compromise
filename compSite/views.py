@@ -101,3 +101,19 @@ def addAnswer(request):
 	mongoConnection.save(curRecord)
 	del curRecord["_id"]
 	return HttpResponse(json.dumps(curRecord))
+
+def ready(request):
+	return HttpResponse("SHIT")
+	curAnswer = request.POST.get("json")
+	curAnswer = json.loads(curAnswer)
+	mongoConnection = Connection(host = "127.0.0.1", port=27017)["compDB"]["compromiseCollection"]
+	curRecord = mongoConnection.find_one({"_id": ObjectId(curAnswer["_id"])})
+	del curAnswer["_id"]
+	curRecord.update(curAnswer)
+	curRecord["type"] = "answer"
+	mongoConnection.save(curRecord)
+	del curRecord["_id"]
+	return HttpResponse(json.dumps(curRecord))
+
+
+
