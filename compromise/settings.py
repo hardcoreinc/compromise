@@ -122,7 +122,7 @@ EMAIL_SUBJECT_CREATE = "Вы приглашенны для решения ком
 EMAIL_TEXT_CREATE = "Перейдите по ссылке, что бы начать решать компроисс %s\n\r\n\rС уважением,\r\nкоманда HardCore Software"
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'petr@hardcodesoftware.ru'
+EMAIL_HOST_USER = 'petr@hardcoresoftware.ru'
 EMAIL_HOST_PASSWORD = 'eJzDhjPggI6H2I7GALTB3JGz8'
 EMAIL_USE_TLS = True
 
