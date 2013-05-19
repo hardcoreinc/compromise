@@ -15,6 +15,6 @@ for event in mongoConnection.find({'type': 'answer'}):
 #		continue
 #	НЕ РАБОТАЕТ!!!
 
-#	for answer in mongoConnection.find({'idEvent': str(idEvent)}):
-#		print "abc"
-#	print event
+	for answer in mongoConnection.find({'idEvent': str(idEvent)}):
+		print "abc"
+	print event
