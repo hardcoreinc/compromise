@@ -16,7 +16,7 @@ $(function() {
 			$.each(answers, function(j,a){
 				InvertN += $(a).find('input').val();
 			});
-			Normalizer = 100/InvertN;
+			Normalizer = 100.0/InvertN;
 			//end of normalization
 			$.each(answers, function(j,a){
 			//	json.questions[i].answers[j].current = $(a).find('input').val();	//line without normalization
@@ -26,11 +26,12 @@ $(function() {
 		});
 		$.post('/addanswer/', {json: JSON.stringify(json)}).done(function(msg) {
 			console.log(msg);
+			//redirect
+			document.location.href = 'http://hardcoresoftware.ru:8000/';
 		}).fail(function(msg) {
 			console.log(msg);
 		});
 
-		//redirect
-		document.location.href = 'http://hardcoresoftware.ru:8000/';
+		
 	});
 });
