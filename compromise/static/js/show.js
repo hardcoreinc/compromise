@@ -19,9 +19,10 @@ $(function() {
 			Normalizer = 100.0/InvertN;
 			//end of normalization
 			$.each(answers, function(j,a){
+				$(a).find('input').val($(a).find('input').val() / Normalizer));
 			//	json.questions[i].answers[j].current = $(a).find('input').val();	//line without normalization
 			//line with normalization:
-				json.questions[i].answers[j].current = $(a).find('input').val() / Normalizer;
+				//json.questions[i].answers[j].current = $(a).find('input').val() / Normalizer;
 			});
 		});
 		$.post('/addanswer/', {json: JSON.stringify(json)}).done(function(msg) {
