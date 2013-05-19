@@ -103,17 +103,13 @@ def addAnswer(request):
 	return HttpResponse(json.dumps(curRecord))
 
 def ready(request):
-	#return HttpResponse("SHIT")
-	curAnswer = request.POST.get("json")
-	curAnswer = json.loads(curAnswer)
-	mongoConnection = Connection(host = "127.0.0.1", port=27017)["compDB"]["compromiseCollection"]
-	curRecord = mongoConnection.find_one({"_id": ObjectId(curAnswer["_id"])})
-	del curAnswer["_id"]
-	curRecord.update(curAnswer)
-	curRecord["type"] = "answer"
-	mongoConnection.save(curRecord)
-	del curRecord["_id"]
-	return HttpResponse(json.dumps(curRecord))
+	uniqDesc = request.GET.get("id")
+	mongoConnection = Connection(host="127.0.0.1", port=27017)["compDB"]["compromiseCollection"]
+	curAnswer = mongoConnection.find_one({"uniqDesc": uniqDesc})
+	idEvent = curAnswer.get("idEvent")
+	curEvent = mongoConnection.find_one({"_id": ObjectId(idEvent)})
+	curEvent["_id"] = str(curEvent["_id"])
+	return render_to_response("showevent.html", {"json": json.dumps(curEvent)})
 
 
 
