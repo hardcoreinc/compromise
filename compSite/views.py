@@ -84,5 +84,6 @@ def addAnswer(request):
 	curRecord = mongoConnection.find_one({"_id": ObjectId(curAnswer["_id"])})
 	del curAnswer["_id"]
 	curRecord.update(curAnswer)
+	curRecord["type"] = "answer"
 	mongoConnection.save(curRecord)
 	return HttpResponse("ok")
