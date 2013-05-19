@@ -12,6 +12,7 @@ $(function() {
 			var answers = $(q).find('.answer');
 			//normalization
 			var Normalizer = 0;
+			var InvertN = 0.1;
 			$.each(answers, function(j,a){
 				InvertN += $(a).find('input').val();
 			});
@@ -30,6 +31,6 @@ $(function() {
 		});
 
 		//redirect
-		document.location.href = 'http://hardcoresoftware.ru:8000';
+		document.location.href = 'http://hardcoresoftware.ru:8000/';
 	});
 });
