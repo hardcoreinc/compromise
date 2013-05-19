@@ -42,7 +42,7 @@
 			<h3><%= data.name %></h3>
 			<% _.each(data.answers, function(i) { %>
 				<div class="answer">
-					<div><%= i.name %></div><div>0<span style="padding: 0px 10px;">&nbsp;</span><span>100</span></div>
+					<div><%= i.name %></div><div>0<span style="padding: 0px 150px;">&nbsp;</span><span>100</span></div>
 					<input type="text" data-slider="true" data-slider-highlight="true" data-slider-range="<%= data.min%>,<%= data.max%>">
 				<div>
 			<% }); %>
