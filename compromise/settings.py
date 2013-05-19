@@ -118,8 +118,8 @@ TEMPLATE_DIRS = (
 
 ANSWER_URL = "http://hardcoresoftware.ru:8000/event?id="
 
-EMAIL_SUBJECT_CREATE = "Вы приглашенны для решения компромисса"
-EMAIL_TEXT_CREATE = "Перейдите по ссылке, что бы начать решать компроисс %s\n\r\n\rС уважением,\r\nкоманда HardCore Software"
+EMAIL_SUBJECT_CREATE = "Вы приглашены для решения компромисса"
+EMAIL_TEXT_CREATE = "Перейдите по ссылке, что бы прийти к компромиссу %s\n\r\n\rС уважением,\r\nКоманда HardCore Software"
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'petr@hardcoresoftware.ru'
