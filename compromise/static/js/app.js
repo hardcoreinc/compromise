@@ -139,7 +139,8 @@ $(function() {
 			'click #modal .add-answer': 'add_answer',
 			'click #modal .delete': 'delete_answer',
 			'click #save-event': 'save_event',
-			'click .users .add-user': 'add_user',
+			'click .users .add-user-select': 'add_user_select',
+            'click .users .add-user-input': 'add_user_input',
 			'click .users-list .delete': 'delete_user',
 		},
 		initialize: function() {
@@ -271,14 +272,22 @@ $(function() {
 				console.log(msg);
 			});
 		},
-		add_user: function() {
+		add_user_select: function() {
 			var self = this;
-			var mail = $('.user-mail').val();
+			var mail = $('select.user-mail option:selected').text();
 			if(mail == '') return;
 			self.options.users.add_item({
 				mail: mail, 
 			});
 		},
+        add_user_input: function() {
+            var self = this;
+            var mail = $('input.user-mail').val();
+            if(mail == '') return;
+            self.options.users.add_item({
+                mail: mail,
+            });
+        },
 		render_user: function(model, collection) {
 			var self = this;
 

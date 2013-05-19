@@ -51,9 +51,17 @@
 		</table>
 
 		<div class="users">
-			<input class="span3 user-mail" type="text" placeholder="email">
-			<button class="btn btn-primary add-user" type="button">Добавить</button>
+            <select class="span3 user-mail" placeholder="email">
+                {% for email in emails %}
+                    <option value="{{ email }}">{{ email }}</option>
+                {% endfor %}
+            </select>
+			<button class="btn btn-primary add-user-select" type="button">Добавить</button>
 		</div>
+        <div class="users">
+            <input class="span3 user-mail" type="text" placeholder="email">
+            <button class="btn btn-primary add-user-input" type="button">Добавить</button>
+        </div>
 		<table class="users-list table-striped">
 			<tbody>
 			</tbody>

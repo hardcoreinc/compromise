@@ -177,4 +177,5 @@ AUTHENTICATION_BACKENDS = (
 
 GOOGLE_OAUTH2_CLIENT_ID      = '342640484025.apps.googleusercontent.com'
 GOOGLE_OAUTH2_CLIENT_SECRET  = 'K_4sKJDOYZ0GNdKkiOaihPfk'
+GOOGLE_OAUTH_EXTRA_SCOPE     = ['https://www.google.com/m8/feeds']
 LOGIN_REDIRECT_URL           = '/newevent'

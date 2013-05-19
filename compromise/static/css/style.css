@@ -96,6 +96,9 @@ div.span3{
 .users {
 	margin-top: 10px;
 }
+.users select {
+    margin: 0;
+}
 .users input {
 	margin: 0;
 }
