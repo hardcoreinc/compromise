@@ -90,26 +90,44 @@ def renderAnswer(request):
 	return render_to_response("showevent.html", {"json": json.dumps(curEvent)})
 
 def addAnswer(request):
-	return HttpResponse("SHIT")
 	curAnswer = request.POST.get("json")
 	curAnswer = json.loads(curAnswer)
-	mongoConnection = Connection(host = "127.0.0.1", port=27017)["compDB"]["compromiseCollection"]
-	curRecord = mongoConnection.find_one({"_id": ObjectId(curAnswer["_id"])})
+	compromises = Connection(host = "127.0.0.1", port=27017)["compDB"]["compromiseCollection"]
+	curRecord = compromises.find_one({"_id": ObjectId(curAnswer["_id"])})
+
 	del curAnswer["_id"]
-	curRecord.update(curAnswer)
-	curRecord["type"] = "answer"
-	mongoConnection.save(curRecord)
+	curAnswer["type"] = "answer"
+	curAnswer["compromise_id"] = curRecord["_id"]
+
+	answers = Connection(host = "127.0.0.1", port=27017)["compDB"]["answers"]
+	answers.insert(curAnswer)
+
 	del curRecord["_id"]
 	return HttpResponse(json.dumps(curRecord))
 
 def ready(request):
-	uniqDesc = request.GET.get("id")
-	mongoConnection = Connection(host="127.0.0.1", port=27017)["compDB"]["answers"]
-	curAnswer = mongoConnection.find_one({"uniqDesc": uniqDesc})
-	idEvent = curAnswer.get("idEvent")
-	curEvent = mongoConnection.find_one({"_id": ObjectId(idEvent)})
-	curEvent["_id"] = str(curEvent["_id"])
-	return render_to_response("showevent.html", {"json": json.dumps(curEvent)})
+	compromise_id = request.GET.get("id")
+
+	compromises = Connection(host = "127.0.0.1", port=27017)["compDB"]["compromiseCollection"]
+	compromise = compromises.find_one({"_id": ObjectId(compromise_id)})
+
+	for q in compromise["questions"]:
+		for a in q["answers"]:
+			a["current"] = 0.0
+	answers = Connection(host="127.0.0.1", port=27017)['compDB']['answers']
+	for answer in answers.find({'compromise_id': ObjectId(compromise_id)}):
+		for i, q in enumerate(answer["questions"]):
+			for j, a in enumerate(q["answers"]):
+				compromise["questions"][i]["answers"][j]["current"] += float(a["current"])
+
+	for q in compromise["questions"]:
+		for a in q["answers"]:
+			if a["current"] > q["answers"][0]["current"]:
+				q["answers"][0] = a
+		del q["answers"][1:]
+
+	del compromise["_id"]
+	return render_to_response("readyevent.html", {"json": json.dumps(compromise)})
 
 
 
