@@ -86,4 +86,5 @@ def addAnswer(request):
 	curRecord.update(curAnswer)
 	curRecord["type"] = "answer"
 	mongoConnection.save(curRecord)
-	return HttpResponse("ok")
+	del curRecord["_id"]
+	return HttpResponse(json.dumps(curRecord))
