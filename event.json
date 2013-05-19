@@ -1,0 +1,54 @@
+{
+	u'timestamp': 1368921950588L, 
+	u'_id': ObjectId('5198175cf349c76e414327f3'), 
+	u'type': u'event', 
+	u'users': [], 
+	u'questions': [
+	{
+		u'index': 0, 
+		u'name': u'Where are we going?', 
+		u'min': 0, 
+		u'max': 100, 
+		u'answers': [
+		{
+			u'index': 0, 
+			u'type': u'', 
+			u'name': 
+			u'Bar', 
+			u'p_index': 0
+		}, 
+		{
+			u'index': 1, 
+			u'type': u'', 
+			u'name': u'Restoran', 
+			u'p_index': 0
+		}, 
+		{
+			u'index': 2, 
+			u'type': u'', 
+			u'name': u'Pub', 
+			u'p_index': 0
+		}], 
+		u'type': u'list'
+	}, 
+	{
+		u'index': 1, 
+		u'name': u'Drink? or Eat?', 
+		u'min': 0, 
+		u'max': 100, 
+		u'answers': [
+		{
+			u'index': 0, 
+			u'type': u'', 
+			u'name': u'Drink!', 
+			u'p_index': 1
+		}, 
+		{
+			u'index': 1, 
+			u'type': u'', 
+			u'name': u'Eat!', 
+			u'p_index': 1
+		}], 
+		u'type': u'list'
+	}]
+}
