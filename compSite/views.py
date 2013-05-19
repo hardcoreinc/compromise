@@ -104,7 +104,7 @@ def addAnswer(request):
 
 def ready(request):
 	uniqDesc = request.GET.get("id")
-	mongoConnection = Connection(host="127.0.0.1", port=27017)["compDB"]["compromiseCollection"]
+	mongoConnection = Connection(host="127.0.0.1", port=27017)["compDB"]["answers"]
 	curAnswer = mongoConnection.find_one({"uniqDesc": uniqDesc})
 	idEvent = curAnswer.get("idEvent")
 	curEvent = mongoConnection.find_one({"_id": ObjectId(idEvent)})
