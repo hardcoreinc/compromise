@@ -17,4 +17,4 @@ for event in mongoConnection.find({'type': 'answer'}):
 
 	for answer in mongoConnection.find({'idEvent': str(idEvent)}):
 		print "abc"
-	print event
+	print json.dump(event)
