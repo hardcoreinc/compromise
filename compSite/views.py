@@ -40,16 +40,18 @@ def newevent(request):
 	if request.user.is_anonymous():
 		return redirect('/')
 
-	access_token = UserSocialAuth.get_social_auth_for_user(request.user).get().tokens['access_token']
-	credentials = OAuth2Token('342640484025.apps.googleusercontent.com', 'K_4sKJDOYZ0GNdKkiOaihPfk', 'user',
-	                          'my-user-agent/1.0', access_token=access_token)
-	gd_client = ContactsClient()
-	credentials.authorize(gd_client)
-	feed = gd_client.GetContacts()
 	emails = []
-	for entry in enumerate(feed.entry):
-		for email in entry[1].email:
-			emails.append(email.address)
+	u = UserSocialAuth.get_social_auth_for_user(request.user).get()
+	if u.provider == 'google-oauth2':
+		access_token = u.tokens['access_token']
+		credentials = OAuth2Token('342640484025.apps.googleusercontent.com', 'K_4sKJDOYZ0GNdKkiOaihPfk', 'user',
+	                                  'my-user-agent/1.0', access_token=access_token)
+		gd_client = ContactsClient()
+		credentials.authorize(gd_client)
+		feed = gd_client.GetContacts()
+		for entry in enumerate(feed.entry):
+			for email in entry[1].email:
+				emails.append(email.address)
 	return render_to_response("newevent.html", {'emails': emails})
 
 def saveCompromise(request):

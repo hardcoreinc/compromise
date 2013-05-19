@@ -174,10 +174,15 @@ LOGGING = {
 
 AUTHENTICATION_BACKENDS = (
     'social_auth.backends.google.GoogleOAuth2Backend',
+    'auth.yandex.FixedYandexOAuth2Backend',
     'django.contrib.auth.backends.ModelBackend',
 )
 
 GOOGLE_OAUTH2_CLIENT_ID      = '342640484025.apps.googleusercontent.com'
 GOOGLE_OAUTH2_CLIENT_SECRET  = 'K_4sKJDOYZ0GNdKkiOaihPfk'
 GOOGLE_OAUTH_EXTRA_SCOPE     = ['https://www.google.com/m8/feeds']
+YANDEX_APP_ID                = 'ffe4abc4b2994814a82c30caed344151'
+YANDEX_API_SECRET            = '35f82896607a4e7a913dba92210c2e96'
 LOGIN_REDIRECT_URL           = '/newevent'
+
+YANDEX_OAUTH2_API_URL        = 'https://login.yandex.ru/info'
