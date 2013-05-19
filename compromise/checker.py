@@ -15,3 +15,5 @@ for compromise in compromises.find({'type':'event'}):
 	if deltaTime > 0:
 		for user in compromises.find({'idEvent':str(compromise_id)}):
 			send_mail(EMAIL_SUBJECT_RESULT, (EMAIL_TEXT_RESULT % compromise_id), EMAIL_HOST_USER, [user["mail"]])
+		compromise["type"] = "protuxlo"
+		compromises.save(compromise)
