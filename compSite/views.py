@@ -90,15 +90,18 @@ def renderAnswer(request):
 	return render_to_response("showevent.html", {"json": json.dumps(curEvent)})
 
 def addAnswer(request):
-	return HttpResponse("SHIT")
 	curAnswer = request.POST.get("json")
 	curAnswer = json.loads(curAnswer)
-	mongoConnection = Connection(host = "127.0.0.1", port=27017)["compDB"]["compromiseCollection"]
-	curRecord = mongoConnection.find_one({"_id": ObjectId(curAnswer["_id"])})
+	compromises = Connection(host = "127.0.0.1", port=27017)["compDB"]["compromiseCollection"]
+	curRecord = compromises.find_one({"_id": ObjectId(curAnswer["_id"])})
+
 	del curAnswer["_id"]
-	curRecord.update(curAnswer)
-	curRecord["type"] = "answer"
-	mongoConnection.save(curRecord)
+	curAnswer["type"] = "answer"
+	curAnswer["compromise_id"] = curRecord["_id"]
+
+	answers = Connection(host = "127.0.0.1", port=27017)["compDB"]["answers"]
+	answers.insert(curAnswer)
+
 	del curRecord["_id"]
 	return HttpResponse(json.dumps(curRecord))
 
