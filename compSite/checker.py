@@ -7,7 +7,8 @@ for event in mongoConnection.find({'type': 'answer'}):
 	idEvent = event["_id"]
 	timeEvent = event["timestamp"]
 	deltaTime = time() - timeEvent
-	if deltaTime < 600:
-		continue
-	for answer in mongoConnection.find({'idEvent': str(idEvent)}):
-		print "abc"
+#	if deltaTime < 600:
+#		continue
+#	for answer in mongoConnection.find({'idEvent': str(idEvent)}):
+#		print "abc"
+	print event
