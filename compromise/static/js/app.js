@@ -164,7 +164,6 @@ $(function() {
 			var name = $(self.name).val();
 			var type = $(self.type).val();
 			if(name == '') return;
-			$(self.name).val() = '';
 			self.options.questions.add_item({
 				name: name, 
 				type: type,
