@@ -25,7 +25,7 @@ urlpatterns = patterns('',
     url(r"^addevent/", saveCompromise),
     url(r"^newevent/", newevent),
     url(r"^addanswer/", addAnswer),
-    url(r"^readyanswer/", addReady),
+    url(r"^readyanswer/", ready),
     url(r"^event/", renderAnswer),
     url(r"^$", index),
 )
