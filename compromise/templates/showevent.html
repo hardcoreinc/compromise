@@ -1,8 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <script>
- 
- json = {"timestamp": 1368919143063, "_id": "51980c66f349c769301692e8", "users": [], "questions": [{"index": 0, "name": "asd", "min": 0, "max": 100, "answers": [{"index": 0, "type": "", "name": "1", "p_index": 0}, {"index": 1, "type": "", "name": "1", "p_index": 0}, {"index": 2, "type": "", "name": "2", "p_index": 0}], "type": "list"}, {"index": 1, "name": "asd", "min": 0, "max": 100, "answers": [], "type": "number"}]}
+ json = {{ json|safe }}
 </script>
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
@@ -30,7 +29,7 @@
 </head>
 <body>
 	<div class="page-header">
-		<h1>Голосование</h1>
+		<h1>Создание <small>нового события</small></h1>
 	</div>
 	<form id="questions" class="span7">
 		<div class="controls">
@@ -42,7 +41,7 @@
 		<div class="question-show">
 			<h3><%= data.name %></h3>
 			<% _.each(data.answers, function(i) { %>
-				<div class="answer" data-min="<%= data.min%>" data-max="<%= data.max%>">
+				<div class="answer">
 					<div><%= i.name %></div>
 					<input type="text" data-slider="true" data-slider-highlight="true" data-slider-range="<%= data.min%>,<%= data.max%>">
 				<div>
