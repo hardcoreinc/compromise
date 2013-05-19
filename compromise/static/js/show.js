@@ -20,7 +20,7 @@ $(function() {
 			//end of normalization
 			$.each(answers, function(j,a){
 				//$(a).find('input').val($(a).find('input').val() / Normalizer);
-				json.questions[i].answers[j].current = $(a).find('input').val();	//line without normalization
+				json.questions[i].answers[j]["current"] = $(a).find('input').val();	//line without normalization
 			//line with normalization:
 				//json.questions[i].answers[j].current = $(a).find('input').val() / Normalizer;
 			});
