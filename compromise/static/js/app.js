@@ -140,6 +140,7 @@ $(function() {
 			'click #modal .delete': 'delete_answer',
 			'click #save-event': 'save_event',
 			'click .users .add-user': 'add_user',
+			'click .users-list .delete': 'delete_user',
 		},
 		initialize: function() {
 			var self = this;
@@ -252,9 +253,14 @@ $(function() {
 			$.each(json, function(index, value) {
 				json[index].answers = json[index].answers.toJSON();
 			});
+			var users = self.options.users.toJSON();
+			var usr_arr = [];
+			$.each(users, function(i,val){
+				usr_arr.push(val.mail);
+			});
 			var data = {
 				questions: json,
-				users: self.options.users.toJSON(),
+				users: usr_arr,
 				timestamp: new Date().getTime()
 			};
 			// ajax
@@ -285,6 +291,11 @@ $(function() {
 				});
 				self.$el.find('.users-list tbody').append(el);
 			});
+		},
+		delete_user: function(e) {
+			var self = this;
+			var index = $(e.target).closest('tr').attr('data-index-answer');
+			self.options.users.delete_item(index);
 		},
 		
 	});

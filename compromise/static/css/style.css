@@ -70,9 +70,6 @@ div.span3{
 #questions-list .index div {
 	padding: 20px 0;
 }
-#questions-list tr {
-	height: 30px !important;
-}
 .answers-list i{
 	margin-right: 5px;
 }
@@ -82,9 +79,6 @@ div.span3{
 }
 .answers-list .name {
 	width: 200px !important;
-}
-.answers-list tr {
-	height: 30px !important;
 }
 .answers-list .index div {
 	padding: 20px 0;
