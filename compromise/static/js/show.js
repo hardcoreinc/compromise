@@ -4,6 +4,8 @@ $(function() {
 	$.each(json.questions, function(i, val) {
 		$('#questions .controls').append(tpl({data: val}));
 	});
+
+
 	$('#save-event').click(function() {
 		var questions = $('.question-show');
 		$.each(questions, function(i,q){
@@ -17,5 +19,6 @@ $(function() {
 		}).fail(function(msg) {
 			console.log(msg);
 		});
+
 	});
 });

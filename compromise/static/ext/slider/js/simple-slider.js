@@ -299,7 +299,8 @@ var __slice = [].slice,
         trigger: trigger,
         el: this.slider
       };
-      return this.input.val(value).trigger($.Event("change", eventData)).trigger("slider:changed", eventData);
+      this.input.trigger($.Event("change", eventData)).trigger("slider:changed", eventData);
+      return this.input.val(value);
     };
 
     return SimpleSlider;

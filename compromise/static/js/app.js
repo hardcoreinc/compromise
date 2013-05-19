@@ -41,7 +41,38 @@ $(function() {
 			});
 	    }
 	});
-	
+
+	//  ================
+	//  = User model =
+	//  ================
+	var User = Backbone.Model.extend({
+		defaults: {
+			mail: ''
+		}
+	});
+
+	//  ======================
+	//  = Users collection =
+	//  ======================
+	var UsersCollection = Backbone.Collection.extend({
+	    model: User,
+	    add_item: function(attr) {
+	    	var self = this;
+			attr.index = self.models.length;
+			self.add(attr);
+	    },
+	    delete_item: function(index) {
+	    	var self = this;
+			var item = self.where({index: parseInt(index)});
+			self.remove(item);
+			self.forEach(function(model, index) {
+				item = self.models[index];
+				model.attributes.index = index;
+				item.set(model.attributes);
+			});
+	    }
+	});
+	var users_collection = new UsersCollection();
 
 	//  ==================
 	//  = Question model =
@@ -108,6 +139,7 @@ $(function() {
 			'click #modal .add-answer': 'add_answer',
 			'click #modal .delete': 'delete_answer',
 			'click #save-event': 'save_event',
+			'click .users .add-user': 'add_user',
 		},
 		initialize: function() {
 			var self = this;
@@ -120,6 +152,9 @@ $(function() {
 
 			self.options.questions.bind('add', self.render_question, self);
 			self.options.questions.bind('remove', self.render_question, self);
+
+			self.options.users.bind('add', self.render_user, self);
+			self.options.users.bind('remove', self.render_user, self);
 
 		},
 		add_question: function() {
@@ -219,7 +254,7 @@ $(function() {
 			});
 			var data = {
 				questions: json,
-				users: [],
+				users: self.options.users.toJSON(),
 				timestamp: new Date().getTime()
 			};
 			// ajax
@@ -228,10 +263,32 @@ $(function() {
 			}).fail(function(msg) {
 				console.log(msg);
 			});
-		}
+		},
+		add_user: function() {
+			var self = this;
+			var mail = $('.user-mail').val();
+			if(mail == '') return;
+			self.options.users.add_item({
+				mail: mail, 
+			});
+		},
+		render_user: function(model, collection) {
+			var self = this;
+
+			self.$el.find('.users-list tbody').html('');
+			collection.forEach(function(model, index) {
+				var icon_class ='';
+				var el = self.answer_template({
+					index_answer: index, 
+					index_question: 0, 
+					name: model.get('mail'),
+				});
+				self.$el.find('.users-list tbody').append(el);
+			});
+		},
 		
 	});
 
-	var questions_view = new QuestionsView({questions: question_collection});
+	var questions_view = new QuestionsView({questions: question_collection, users: users_collection});
 
 });

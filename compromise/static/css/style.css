@@ -89,6 +89,12 @@ div.span3{
 .answers-list .index div {
 	padding: 20px 0;
 }
+.users {
+	margin-top: 10px;
+}
+.users input {
+	margin: 0;
+}
 .modal-body .controls {
 	margin: 0 100px;
 }
