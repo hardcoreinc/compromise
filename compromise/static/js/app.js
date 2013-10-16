@@ -164,6 +164,7 @@ $(function() {
 			var name = $(self.name).val();
 			var type = $(self.type).val();
 			if(name == '') return;
+			$(self.name).val('');
 			self.options.questions.add_item({
 				name: name, 
 				type: type,
@@ -220,6 +221,7 @@ $(function() {
 			var self = this;
 			var name = $(e.target).parent().find('input').val();
 			if(name == '') return;
+			$(e.target).parent().find('input').val('');
 			var index = $(e.target).attr('data-index');
 			var model = self.options.questions.where({index: parseInt(index)});
 			model = model[0];
@@ -284,6 +286,7 @@ $(function() {
             var self = this;
             var mail = $('input.user-mail').val();
             if(mail == '') return;
+            $('input.user-mail').val('');
             self.options.users.add_item({
                 mail: mail,
             });
