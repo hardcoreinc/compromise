@@ -138,6 +138,7 @@ $(function() {
 			'click #questions-list .delete': 'delete_question',
 			'click .question .edit': 'show_modal',
 			'click #modal .add-answer': 'add_answer',
+			'keypress #modal .answer-name': 'add_answer_on_enter',
 			'click #modal .delete': 'delete_answer',
 			'click #save-event': 'save_event',
 			'click .users .add-user-select': 'add_user_select',
@@ -233,12 +234,20 @@ $(function() {
 			var self = this;
 			var name = $(e.target).parent().find('input').val();
 			if(name == '') return;
-			var index = $(e.target).attr('data-index');
+			var index = $(e.target).parent().find('button').attr('data-index');
 			var model = self.options.questions.where({index: parseInt(index)});
 			model = model[0];
 			model.get('answers').add_item({name: name, p_index: model.get('index')});
 			$(e.target).parent().find('input').val('');
 			$(e.target).parent().find('input').focus();
+
+		},
+		add_answer_on_enter: function(e) {
+			if(e.keyCode == 13) {
+				this.add_answer(e);
+				return false;
+			}
+			return;
 
 		},
 		render_answers: function(model, collection) {
