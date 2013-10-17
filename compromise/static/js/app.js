@@ -262,7 +262,8 @@ $(function() {
 			var data = {
 				questions: json,
 				users: usr_arr,
-				timestamp: new Date().getTime()
+				timestamp: new Date().getTime(),
+				duration: 120000
 			};
 			// ajax
 			$.post('/addevent/', {json: JSON.stringify(data)}).done(function(msg) {
