@@ -27,5 +27,6 @@ urlpatterns = patterns('',
     url(r"^addanswer/", addAnswer),
     url(r"^readyanswer/", ready),
     url(r"^event/", renderAnswer),
+    url(r"^logout/", dologout),
     url(r"^$", index),
 )

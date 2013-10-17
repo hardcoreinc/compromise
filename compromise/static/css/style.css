@@ -131,3 +131,7 @@ input.hide {
 	position: relative;
 	right: 0;
 }
+.logout {
+	margin-right: 40px;
+	float: right;
+}

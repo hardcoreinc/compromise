@@ -13,6 +13,7 @@ from urllib import urlencode
 from httplib import HTTPSConnection
 from bson.objectid import ObjectId
 from social_auth.models import UserSocialAuth
+from django.contrib.auth import logout
 from gdata.contacts.client import ContactsClient
 from gdata.gauth import OAuth2Token
 
@@ -53,6 +54,12 @@ def newevent(request):
 			for email in entry[1].email:
 				emails.append(email.address)
 	return render_to_response("newevent.html", {'emails': emails})
+
+def dologout(request):
+	if request.user.is_anonymous():
+		return redirect('/')
+	logout(request)
+	return redirect('/')
 
 def saveCompromise(request):
 	try:
