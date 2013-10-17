@@ -141,13 +141,16 @@ $(function() {
 			'click #modal .delete': 'delete_answer',
 			'click #save-event': 'save_event',
 			'click .users .add-user-select': 'add_user_select',
-            'click .users .add-user-input': 'add_user_input',
+            'click #add-user-mail-input': 'add_user_input',
+            'keypress #user-mail-input': 'add_user_mail_input_on_enter',
 			'click .users-list .delete': 'delete_user',
 		},
 		initialize: function() {
 			var self = this;
 			self.name = self.$el.find('#question-name');
 			self.type = self.$el.find('#question-type');
+
+			self.userInput = self.$el.find('#user-mail-input');
 
 			self.question_template = _.template($('#question-tr-tpl').html()); 
 			self.answer_template = _.template($('#answer-tr-tpl').html()); 
@@ -294,13 +297,20 @@ $(function() {
 		},
         add_user_input: function() {
             var self = this;
-            var mail = $('input.user-mail').val();
+            var mail = $(self.userInput).val();
             if(mail == '') return;
             self.options.users.add_item({
                 mail: mail,
             });
-            $('input.user-mail').val('');
-            $('input.user-mail').focus();
+            $(self.userInput).val('');
+            $(self.userInput).focus();
+        },
+        add_user_mail_input_on_enter: function(e) {
+        	if(e.keyCode == 13) {
+				this.add_user_input();
+			}
+			return;
+
         },
 		render_user: function(model, collection) {
 			var self = this;
