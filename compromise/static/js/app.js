@@ -134,6 +134,7 @@ $(function() {
 		type: '',
 		events: {
 			'click #question-add': 'add_question',
+			'keypress #question-name': 'add_question_on_enter',
 			'click #questions-list .delete': 'delete_question',
 			'click .question .edit': 'show_modal',
 			'click #modal .add-answer': 'add_answer',
@@ -174,6 +175,13 @@ $(function() {
 			$(self.name).focus();
 
 			
+		},
+		add_question_on_enter: function(e) {
+			if(e.keyCode == 13) {
+				this.add_question();
+			}
+			return;
+
 		},
 		delete_question: function(e) {
 			var self = this;
