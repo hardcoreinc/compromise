@@ -1,16 +1,12 @@
 # -*- coding: utf-8 -*-
 import json
 import smtplib
-#import requests
-#from email.mime.text import MIMEText
 from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, redirect
 from pymongo import Connection
 from hashlib import md5
 from compromise.settings import *
-from urllib import urlencode
-from httplib import HTTPSConnection
 from bson.objectid import ObjectId
 from social_auth.models import UserSocialAuth
 from gdata.contacts.client import ContactsClient
