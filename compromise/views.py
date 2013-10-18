@@ -1,6 +1,5 @@
 from hashlib import md5
 import json
-import smtplib
 
 from bson.objectid import ObjectId
 from gdata.contacts.client import ContactsClient
@@ -12,19 +11,6 @@ from pymongo import Connection
 from social_auth.models import UserSocialAuth
 
 from compromise.settings import ANSWER_URL, EMAIL_SUBJECT_CREATE, EMAIL_TEXT_CREATE, EMAIL_HOST_USER
-
-def sendMail(subj, text, reciver):
-    msg = MIMEText(text)
-    msg['Subject'] = subj
-    msg['From'] = 'noreply@compromise.best',
-    msg['To'] = reciver
-
-    s = smtplib.SMTP('37.200.65.226')
-    s.sendmail(msg['From'], [reciver], msg.as_string())
-
-
-def hello(request):
-    return HttpResponse("hello")
 
 
 def index(request):
