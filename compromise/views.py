@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import json
 import smtplib
 from django.core.mail import send_mail
