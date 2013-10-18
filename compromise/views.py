@@ -1,16 +1,17 @@
+from hashlib import md5
 import json
 import smtplib
+
+from bson.objectid import ObjectId
+from gdata.contacts.client import ContactsClient
+from gdata.gauth import OAuth2Token
 from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, redirect
 from pymongo import Connection
-from hashlib import md5
-from compromise.settings import *
-from bson.objectid import ObjectId
 from social_auth.models import UserSocialAuth
-from gdata.contacts.client import ContactsClient
-from gdata.gauth import OAuth2Token
 
+from compromise.settings import ANSWER_URL, EMAIL_SUBJECT_CREATE, EMAIL_TEXT_CREATE, EMAIL_HOST_USER
 
 def sendMail(subj, text, reciver):
     msg = MIMEText(text)

@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
-from views import *
+
+from views import saveCompromise, newevent, addAnswer, ready, renderAnswer, index
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin

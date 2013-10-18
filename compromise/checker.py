@@ -1,11 +1,12 @@
 #!/usr/bin/python
 
-from pymongo import Connection
-from time import time
-from django.core.mail import send_mail
-from settings import *
-
 import os
+from time import time
+
+from django.core.mail import send_mail
+from pymongo import Connection
+
+from settings import EMAIL_SUBJECT_RESULT, EMAIL_TEXT_RESULT, EMAIL_HOST_USER
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 
