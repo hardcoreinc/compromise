@@ -72,10 +72,12 @@ def renderAnswer(request):
     uniqDesc = request.GET.get("id")
     mongoConnection = Connection(host="127.0.0.1", port=27017)["compDB"]["compromiseCollection"]
     curAnswer = mongoConnection.find_one({"uniqDesc": uniqDesc})
-    idEvent = curAnswer.get("idEvent")
-    curEvent = mongoConnection.find_one({"_id": ObjectId(idEvent)})
-    curEvent["_id"] = str(curEvent["_id"])
-    return render_to_response("showevent.html", {"json": json.dumps(curEvent)})
+    if curAnswer:
+        idEvent = curAnswer.get("idEvent")
+        curEvent = mongoConnection.find_one({"_id": ObjectId(idEvent)})
+        curEvent["_id"] = str(curEvent["_id"])
+        curEvent["uniqDesc"] = uniqDesc
+        return render_to_response("showevent.html", {"json": json.dumps(curEvent)})
 
 
 def addAnswer(request):
@@ -83,6 +85,7 @@ def addAnswer(request):
     curAnswer = json.loads(curAnswer)
     compromises = Connection(host="127.0.0.1", port=27017)["compDB"]["compromiseCollection"]
     curRecord = compromises.find_one({"_id": ObjectId(curAnswer["_id"])})
+    compromises.remove({"uniqDesc": curAnswer["uniqDesc"]})
 
     del curAnswer["_id"]
     curAnswer["type"] = "answer"
