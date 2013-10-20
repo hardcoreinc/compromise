@@ -78,6 +78,8 @@ def renderAnswer(request):
         curEvent["_id"] = str(curEvent["_id"])
         curEvent["uniqDesc"] = uniqDesc
         return render_to_response("showevent.html", {"json": json.dumps(curEvent)})
+    else:
+        return render_to_response("error.html", {"error_message": "404"})
 
 
 def addAnswer(request):
