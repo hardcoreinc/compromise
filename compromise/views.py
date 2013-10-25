@@ -44,10 +44,10 @@ def saveCompromise(request):
         #user = "kniaz1234@gmail.com"
         #send_mail(EMAIL_SUBJECT_CREATE, (EMAIL_TEXT_CREATE % "http://ya.ru/"), EMAIL_HOST_USER, [user])
         currentCompromise = request.POST.get("json")
-
         currentCompromise = json.loads(currentCompromise)
 
-        mongoConnection = Connection(host="127.0.0.1", port=27017)["compDB"]["compromiseCollection"]
+        mongoConnection = Connection(host="127.0.0.1", port=27017)["compDB"]["compromises"]
+        invitesCollection = Connection(host="127.0.0.1", port=27017)["compDB"]["sentInvites"]
         users = currentCompromise.get("users", [])
         if not users:
             users = ['kniaz1234@gmail.com', 'michaelpak@live.ru', "russtone@yandex.ru"]
@@ -59,7 +59,7 @@ def saveCompromise(request):
             uniqDesc = md5(user + str(recordId)).hexdigest()
             uniqUrl = ANSWER_URL + uniqDesc
 
-            mongoConnection.insert({"uniqDesc": uniqDesc, "idEvent": str(recordId), 'mail': user})
+            invitesCollection.insert({"uniqDesc": uniqDesc, "idEvent": str(recordId), 'mail': user})
             send_mail(EMAIL_SUBJECT_CREATE, (EMAIL_TEXT_CREATE % uniqUrl), EMAIL_HOST_USER, [user])
 
         return HttpResponse('{"status": "ok", "url": %s}' % uniqUrl)
@@ -70,8 +70,9 @@ def saveCompromise(request):
 
 def renderAnswer(request):
     uniqDesc = request.GET.get("id")
-    mongoConnection = Connection(host="127.0.0.1", port=27017)["compDB"]["compromiseCollection"]
-    curAnswer = mongoConnection.find_one({"uniqDesc": uniqDesc})
+    mongoConnection = Connection(host="127.0.0.1", port=27017)["compDB"]["compromises"]
+    invitesCollection = Connection(host="127.0.0.1", port=27017)["compDB"]["sentInvites"]
+    curAnswer = invitesCollection.find_one({"uniqDesc": uniqDesc})
     if curAnswer:
         idEvent = curAnswer.get("idEvent")
         curEvent = mongoConnection.find_one({"_id": ObjectId(idEvent)})
@@ -85,9 +86,10 @@ def renderAnswer(request):
 def addAnswer(request):
     curAnswer = request.POST.get("json")
     curAnswer = json.loads(curAnswer)
-    compromises = Connection(host="127.0.0.1", port=27017)["compDB"]["compromiseCollection"]
+    compromises = Connection(host="127.0.0.1", port=27017)["compDB"]["compromises"]
+    invitesCollection = Connection(host="127.0.0.1", port=27017)["compDB"]["sentInvites"]
     curRecord = compromises.find_one({"_id": ObjectId(curAnswer["_id"])})
-    compromises.remove({"uniqDesc": curAnswer["uniqDesc"]})
+    invitesCollection.remove({"uniqDesc": curAnswer["uniqDesc"]})
 
     del curAnswer["_id"]
     curAnswer["type"] = "answer"
@@ -103,7 +105,7 @@ def addAnswer(request):
 def ready(request):
     compromise_id = request.GET.get("id")
 
-    compromises = Connection(host="127.0.0.1", port=27017)["compDB"]["compromiseCollection"]
+    compromises = Connection(host="127.0.0.1", port=27017)["compDB"]["compromises"]
     compromise = compromises.find_one({"_id": ObjectId(compromise_id)})
 
     for q in compromise["questions"]:

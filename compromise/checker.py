@@ -10,7 +10,7 @@ from settings import EMAIL_SUBJECT_RESULT, EMAIL_TEXT_RESULT, EMAIL_HOST_USER
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 
-compromises = Connection(host="127.0.0.1", port=27017)['compDB']['compromiseCollection']
+compromises = Connection(host="127.0.0.1", port=27017)['compDB']['compromises']
 for compromise in compromises.find({'type': 'event'}):
     compromise_id = compromise["_id"]
     timeEvent = compromise["timestamp"]
