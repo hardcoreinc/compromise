@@ -86,17 +86,18 @@ def addAnswer(request):
     curAnswer = json.loads(curAnswer)
 
     compromisesCollection = Connection(host="127.0.0.1", port=27017)["compDB"]["compromises"]
-    invitesCollection = Connection(host="127.0.0.1", port=27017)["compDB"]["sentInvites"]
-
     curRecord = compromisesCollection.find_one({"_id": ObjectId(curAnswer["_id"])})
-    invitesCollection.remove({"uniqDesc": curAnswer["uniqDesc"]})
 
     del curAnswer["_id"]
     curAnswer["type"] = "answer"
     curAnswer["compromise_id"] = curRecord["_id"]
+    curAnswer["uniqDesc"] = curAnswer["uniqDesc"]
 
     answersCollection = Connection(host="127.0.0.1", port=27017)["compDB"]["answers"]
     answersCollection.insert(curAnswer)
+
+    invitesCollection = Connection(host="127.0.0.1", port=27017)["compDB"]["sentInvites"]
+    invitesCollection.remove({"uniqDesc": curAnswer["uniqDesc"]})
 
     del curRecord["_id"]
     return HttpResponse(json.dumps(curRecord))
