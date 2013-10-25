@@ -41,19 +41,15 @@ def newevent(request):
 
 def saveCompromise(request):
     try:
-        #user = "kniaz1234@gmail.com"
-        #send_mail(EMAIL_SUBJECT_CREATE, (EMAIL_TEXT_CREATE % "http://ya.ru/"), EMAIL_HOST_USER, [user])
         currentCompromise = request.POST.get("json")
         currentCompromise = json.loads(currentCompromise)
 
-        mongoConnection = Connection(host="127.0.0.1", port=27017)["compDB"]["compromises"]
+        compromisesCollection = Connection(host="127.0.0.1", port=27017)["compDB"]["compromises"]
         invitesCollection = Connection(host="127.0.0.1", port=27017)["compDB"]["sentInvites"]
-        users = currentCompromise.get("users", [])
-        if not users:
-            users = ['kniaz1234@gmail.com', 'michaelpak@live.ru', "russtone@yandex.ru"]
 
+        users = currentCompromise.get("users", [])
         currentCompromise["type"] = "event"
-        recordId = mongoConnection.insert(currentCompromise)
+        recordId = compromisesCollection.insert(currentCompromise)
 
         for user in users:
             uniqDesc = md5(user + str(recordId)).hexdigest()
@@ -70,12 +66,14 @@ def saveCompromise(request):
 
 def renderAnswer(request):
     uniqDesc = request.GET.get("id")
-    mongoConnection = Connection(host="127.0.0.1", port=27017)["compDB"]["compromises"]
+
+    compromisesCollection = Connection(host="127.0.0.1", port=27017)["compDB"]["compromises"]
     invitesCollection = Connection(host="127.0.0.1", port=27017)["compDB"]["sentInvites"]
+
     curAnswer = invitesCollection.find_one({"uniqDesc": uniqDesc})
     if curAnswer:
         idEvent = curAnswer.get("idEvent")
-        curEvent = mongoConnection.find_one({"_id": ObjectId(idEvent)})
+        curEvent = compromisesCollection.find_one({"_id": ObjectId(idEvent)})
         curEvent["_id"] = str(curEvent["_id"])
         curEvent["uniqDesc"] = uniqDesc
         return render_to_response("showevent.html", {"json": json.dumps(curEvent)})
@@ -86,17 +84,19 @@ def renderAnswer(request):
 def addAnswer(request):
     curAnswer = request.POST.get("json")
     curAnswer = json.loads(curAnswer)
-    compromises = Connection(host="127.0.0.1", port=27017)["compDB"]["compromises"]
+
+    compromisesCollection = Connection(host="127.0.0.1", port=27017)["compDB"]["compromises"]
     invitesCollection = Connection(host="127.0.0.1", port=27017)["compDB"]["sentInvites"]
-    curRecord = compromises.find_one({"_id": ObjectId(curAnswer["_id"])})
+
+    curRecord = compromisesCollection.find_one({"_id": ObjectId(curAnswer["_id"])})
     invitesCollection.remove({"uniqDesc": curAnswer["uniqDesc"]})
 
     del curAnswer["_id"]
     curAnswer["type"] = "answer"
     curAnswer["compromise_id"] = curRecord["_id"]
 
-    answers = Connection(host="127.0.0.1", port=27017)["compDB"]["answers"]
-    answers.insert(curAnswer)
+    answersCollection = Connection(host="127.0.0.1", port=27017)["compDB"]["answers"]
+    answersCollection.insert(curAnswer)
 
     del curRecord["_id"]
     return HttpResponse(json.dumps(curRecord))
@@ -105,14 +105,14 @@ def addAnswer(request):
 def ready(request):
     compromise_id = request.GET.get("id")
 
-    compromises = Connection(host="127.0.0.1", port=27017)["compDB"]["compromises"]
-    compromise = compromises.find_one({"_id": ObjectId(compromise_id)})
+    compromisesCollection = Connection(host="127.0.0.1", port=27017)["compDB"]["compromises"]
+    compromise = compromisesCollection.find_one({"_id": ObjectId(compromise_id)})
 
     for q in compromise["questions"]:
         for a in q["answers"]:
             a["current"] = 0.0
-    answers = Connection(host="127.0.0.1", port=27017)['compDB']['answers']
-    for answer in answers.find({'compromise_id': ObjectId(compromise_id)}):
+    answersCollection = Connection(host="127.0.0.1", port=27017)['compDB']['answers']
+    for answer in answersCollection.find({'compromise_id': ObjectId(compromise_id)}):
         for i, q in enumerate(answer["questions"]):
             for j, a in enumerate(q["answers"]):
                 compromise["questions"][i]["answers"][j]["current"] += float(a["current"])
