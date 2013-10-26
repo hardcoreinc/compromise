@@ -49,14 +49,13 @@ def saveCompromise(request):
         invitesCollection = Connection(host="127.0.0.1", port=27017)["compDB"]["sentInvites"]
 
         users = currentCompromise.get("users", [])
-        currentCompromise["type"] = "event"
         recordId = compromisesCollection.insert(currentCompromise)
 
         for user in users:
             uniqDesc = md5(user + str(recordId)).hexdigest()
             uniqUrl = ANSWER_URL + uniqDesc
 
-            invitesCollection.insert({"uniqDesc": uniqDesc, "idEvent": str(recordId), 'mail': user})
+            invitesCollection.insert({"uniqDesc": uniqDesc, "compromiseId": str(recordId)})
             send_mail(EMAIL_SUBJECT_CREATE, (EMAIL_TEXT_CREATE % uniqUrl), EMAIL_HOST_USER, [user])
 
         return HttpResponse('{"status": "ok", "url": %s}' % uniqUrl)
@@ -69,17 +68,23 @@ def renderAnswer(request):
     uniqDesc = request.GET.get("id")
 
     compromisesCollection = Connection(host="127.0.0.1", port=27017)["compDB"]["compromises"]
-    invitesCollection = Connection(host="127.0.0.1", port=27017)["compDB"]["sentInvites"]
 
-    curAnswer = invitesCollection.find_one({"uniqDesc": uniqDesc})
+    answersCollection = Connection(host="127.0.0.1", port=27017)["compDB"]["answers"]
+    curAnswer = answersCollection.find_one({"uniqDesc": uniqDesc})
+
     if curAnswer:
-        idEvent = curAnswer.get("idEvent")
-        curEvent = compromisesCollection.find_one({"_id": ObjectId(idEvent)})
-        curEvent["_id"] = str(curEvent["_id"])
-        curEvent["uniqDesc"] = uniqDesc
-        return render_to_response("showevent.html", {"json": json.dumps(curEvent)})
+        return HttpResponseNotFound('<h1>You have already voted</h1>')   
     else:
-        return render_to_response("error.html", {"error_message": "404"})
+        invitesCollection = Connection(host="127.0.0.1", port=27017)["compDB"]["sentInvites"]
+        curAnswer = invitesCollection.find_one({"uniqDesc": uniqDesc})
+        if curAnswer:
+            idEvent = curAnswer.get("compromiseId")
+            curEvent = compromisesCollection.find_one({"_id": ObjectId(idEvent)})
+            curEvent["_id"] = str(curEvent["_id"])
+            curEvent["uniqDesc"] = uniqDesc
+            return render_to_response("showevent.html", {"json": json.dumps(curEvent)})
+        else:
+            return HttpResponseNotFound('<h1>Page not found</h1>')
 
 
 def addAnswer(request):
@@ -90,15 +95,11 @@ def addAnswer(request):
     curRecord = compromisesCollection.find_one({"_id": ObjectId(curAnswer["_id"])})
 
     del curAnswer["_id"]
-    curAnswer["type"] = "answer"
-    curAnswer["compromise_id"] = curRecord["_id"]
+    curAnswer["compromiseId"] = str(curRecord["_id"])
     curAnswer["uniqDesc"] = curAnswer["uniqDesc"]
 
     answersCollection = Connection(host="127.0.0.1", port=27017)["compDB"]["answers"]
     answersCollection.insert(curAnswer)
-
-    invitesCollection = Connection(host="127.0.0.1", port=27017)["compDB"]["sentInvites"]
-    invitesCollection.remove({"uniqDesc": curAnswer["uniqDesc"]})
 
     del curRecord["_id"]
     return HttpResponse(json.dumps(curRecord))
