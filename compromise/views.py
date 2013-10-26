@@ -6,6 +6,7 @@ from gdata.contacts.client import ContactsClient
 from gdata.gauth import OAuth2Token
 from django.core.mail import send_mail
 from django.http import HttpResponse
+from django.http import HttpResponseNotFound
 from django.shortcuts import render_to_response, redirect
 from pymongo import Connection
 from social_auth.models import UserSocialAuth
@@ -106,23 +107,11 @@ def addAnswer(request):
 def ready(request):
     compromise_id = request.GET.get("id")
 
-    compromisesCollection = Connection(host="127.0.0.1", port=27017)["compDB"]["compromises"]
+    compromisesCollection = Connection(host="127.0.0.1", port=27017)["compDB"]["results"]
     compromise = compromisesCollection.find_one({"_id": ObjectId(compromise_id)})
 
-    for q in compromise["questions"]:
-        for a in q["answers"]:
-            a["current"] = 0.0
-    answersCollection = Connection(host="127.0.0.1", port=27017)['compDB']['answers']
-    for answer in answersCollection.find({'compromise_id': ObjectId(compromise_id)}):
-        for i, q in enumerate(answer["questions"]):
-            for j, a in enumerate(q["answers"]):
-                compromise["questions"][i]["answers"][j]["current"] += float(a["current"])
-
-    for q in compromise["questions"]:
-        for a in q["answers"]:
-            if a["current"] > q["answers"][0]["current"]:
-                q["answers"][0] = a
-        del q["answers"][1:]
-
-    del compromise["_id"]
-    return render_to_response("readyevent.html", {"json": json.dumps(compromise)})
+    if compromise:
+        del compromise["_id"]
+        return render_to_response("readyevent.html", {"json": json.dumps(compromise)})
+    else:
+        return HttpResponseNotFound('<h1>Page not found</h1>')
